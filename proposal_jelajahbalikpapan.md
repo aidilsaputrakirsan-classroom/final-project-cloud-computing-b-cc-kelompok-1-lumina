@@ -59,61 +59,25 @@ Memilih salah satu kategori seperti Pra-Minyak, Pendudukan Jepang, atau Era Mode
 Sistem menampilkan Halaman Sejarah berisi artikel sesuai kategori yang dipilih.
 Pengguna mengklik salah satu artikel untuk melihat detail peristiwa.
 
-Alur 4: Pengguna Menelusuri Berdasarkan Kategori Sejarah
-Pengguna membuka menu Kategori Sejarah.
-Memilih salah satu kategori seperti Pra-Minyak, Pendudukan Jepang, atau Era Modern.
-Sistem menampilkan Halaman Sejarah berisi artikel sesuai kategori yang dipilih.
-Pengguna mengklik salah satu artikel untuk melihat detail peristiwa.
+![alt text](image-2.png)
 
 
 ## Wireframe
 ![alt text](Home.png)
-Header: Logo "Jejak Balikpapan" | Menu Navigasi (Linimasa, Peta, Galeri, Kontribusi, Tentang Kami)
+Menampilkan gambaran umum tentang Kota Balikpapan. Berisi sejarah singkat, visi dan misi, motto “Balikpapan Kota Beriman”, serta legenda asal nama Balikpapan. Di bagian bawah terdapat kontak dan formulir pesan.
 
-Hero Section: Gambar besar ikonik sejarah Balikpapan (misal: Kilang Minyak tempo dulu) dengan judul besar "Menelusuri Jejak Sejarah Kota Minyak". Di bawahnya ada kolom pencarian.
-
-Bagian "Pilihan Editor": 3 kartu (card) menuju artikel-artikel menarik yang sedang disorot. Setiap kartu berisi gambar, judul, dan ringkasan singkat.
-
-Bagian "Jelajahi Linimasa": Sebuah cuplikan visual dari linimasa interaktif dengan tombol "Jelajahi Sekarang".
-
-Bagian "Kirim Ceritamu": Ajakan singkat untuk berkontribusi, dengan tombol "Mulai Berkontribusi".
-
-Footer: Tautan Cepat | Kontak | Media Sosial.
 
 ![alt text](Categories.png)
-Detail Peristiwa/Artikel
-Header: Sama seperti Beranda.
-Judul Artikel: Contoh: "Tragedi Sumur Mathilde: Awal Mula Julukan Kota Minyak".
-
-Gambar Utama: Foto utama yang relevan dengan artikel.
-Meta Data: Tanggal Peristiwa | Kategori Era | Penulis.
-Isi Artikel: Teks narasi sejarah yang mendalam.
-Sidebar Kanan:
-Peta Mini: Menampilkan lokasi peristiwa di peta.
-Galeri Terkait: Kumpulan 4-6 thumbnail foto terkait artikel.
-Artikel Terkait: Daftar tautan ke artikel lain yang relevan.
+Halaman Kategori Sejarah menampilkan perjalanan Kota Balikpapan berdasarkan era atau waktu tertentu. Pengguna dapat memilih tahun seperti 1739, 1897, 1907, 1945, 2014, dan 2017 untuk melihat peristiwa penting pada masa tersebut. Setiap kategori berisi ringkasan dan tombol “Read more” untuk membaca detail sejarah lebih lanjut.
 
 ![alt text](Blog.png)
-Header: Sama seperti Beranda.
-
-Judul Halaman: "Linimasa Sejarah Balikpapan".
-
-Konten Utama: Sebuah garis waktu horizontal yang bisa digeser (scroll). Garis waktu dibagi menjadi beberapa era (misal: Pra-Minyak, Era BPM, Pendudukan Jepang, Kemerdekaan, Era Modern).
-
-Interaksi: Saat kursor diarahkan ke sebuah titik peristiwa di linimasa, sebuah pop-up akan muncul dengan judul peristiwa dan gambar mini. Jika diklik, pengguna akan dibawa ke Halaman Detail Peristiwa.
-
 ![alt text](<Blog Detail.png>)
-Header: Sama seperti Beranda.
-Judul Artikel: Contoh: "Tragedi Sumur Mathilde: Awal Mula Julukan Kota Minyak".
+Menampilkan artikel lengkap tentang perjalanan sejarah Kota Balikpapan, seperti “Jejak Panjang dari Kampung Nelayan ke Kota Minyak”. Halaman ini berisi judul artikel, tanggal publikasi, isi cerita sejarah secara mendalam, serta gambar pendukung di samping teks.
 
-Gambar Utama: Foto utama yang relevan dengan artikel.
-Meta Data: Tanggal Peristiwa | Kategori Era | Penulis.
-Isi Artikel: Teks narasi sejarah yang mendalam.
-Sidebar Kanan:
-Peta Mini: Menampilkan lokasi peristiwa di peta.
-Galeri Terkait: Kumpulan 4-6 thumbnail foto terkait artikel.
-Artikel Terkait: Daftar tautan ke artikel lain yang relevan.
+![alt text](image-3.png)
+Fitur Pencarian Sejarah, mencari artikel atau informasi tertentu tentang sejarah Balikpapan. Pengguna cukup mengetik kata kunci di kolom Search, lalu sistem akan menampilkan hasil yang relevan dari halaman atau blog sejarah yang tersedia di website Jejak Balikpapan.
 
+## SKEMA DESIGN DATABASE
 ![alt text](<Cuplikan layar 2025-10-20 221442.png>)
 
 Berikut adalah fungsi dari masing-masing tabel (kotak) dalam diagram:
