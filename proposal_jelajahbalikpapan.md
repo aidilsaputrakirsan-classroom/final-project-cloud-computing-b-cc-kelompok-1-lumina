@@ -2,7 +2,7 @@ Proposal Proyek Website: Jejak Balikpapan
 Dokumen Proposal
 
 ## Deskripsi Aplikasi
-Jejak Balikpapan merupakan platform web arsip digital yang bertujuan untuk mendokumentasikan, melestarikan, dan menyajikan sejarah Kota Balikpapan secara interaktif dan mudah diakses. Website ini diharapkan menjadi sumber utama informasi sejarah lokal, menghubungkan generasi masa kini dengan peristiwa masa lalu melalui pendekatan digital. 
+Jelajah Balikpapan merupakan platform web arsip digital yang bertujuan untuk mendokumentasikan, melestarikan, dan menyajikan sejarah Kota Balikpapan secara interaktif dan mudah diakses. Website ini diharapkan menjadi sumber utama informasi sejarah lokal, menghubungkan generasi masa kini dengan peristiwa masa lalu melalui pendekatan digital. 
 Platform ini menyajikan artikel sejarah dan foto arsip yang dikurasi secara tematik untuk menciptakan pengalaman belajar yang menarik. Dengan tampilan modern dan navigasi yang mudah, pengguna dapat menelusuri jejak sejarah Balikpapan dari masa pra-kolonial hingga era modern.
 
 
