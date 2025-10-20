@@ -2,11 +2,16 @@ Proposal Proyek Website: Jejak Balikpapan
 Dokumen Proposal
 
 ## Deskripsi Aplikasi
-Jejak Balikpapan adalah sebuah platform web arsip digital yang didedikasikan untuk mengumpulkan, melestarikan, dan menyajikan sejarah kota Balikpapan secara interaktif dan mudah diakses. Website ini bertujuan untuk menjadi sumber informasi utama bagi siapa saja yang ingin mempelajari perjalanan sejarah kota, mulai dari era pra-kolonial, penemuan minyak, perannya dalam Perang Dunia II, hingga perkembangan modern. Dengan pendekatan multimedia, "Jejak Balikpapan" tidak hanya menampilkan teks, tetapi juga foto, peta historis, dan video untuk memberikan pengalaman belajar yang imersif.
+Jejak Balikpapan merupakan platform web arsip digital yang bertujuan untuk mendokumentasikan, melestarikan, dan menyajikan sejarah Kota Balikpapan secara interaktif dan mudah diakses. Website ini diharapkan menjadi sumber utama informasi sejarah lokal, menghubungkan generasi masa kini dengan peristiwa masa lalu melalui pendekatan digital. 
+Platform ini menyajikan artikel sejarah dan foto arsip yang dikurasi secara tematik untuk menciptakan pengalaman belajar yang menarik. Dengan tampilan modern dan navigasi yang mudah, pengguna dapat menelusuri jejak sejarah Balikpapan dari masa pra-kolonial hingga era modern.
+
 
 ## Target User
-Pelajar dan Mahasiswa: Sebagai sumber referensi utama untuk tugas sekolah, penelitian, dan skripsi mengenai sejarah lokal.
-Instansi Pemerintah & Lembaga Kebudayaan: Sebagai media untuk edukasi publik dan promosi warisan budaya kota.
+Pelajar dan Mahasiswa: Sebagai media pembelajaran dan referensi utama untuk tugas sekolah, penelitian, maupun skripsi yang berfokus pada sejarah lokal.
+Instansi Pemerintah dan Lembaga Kebudayaan: Sebagai sarana edukasi publik dan promosi warisan budaya kota melalui tampilan digital yang modern.
+Masyarakat Umum dan Komunitas Lokal: Sebagai wadah eksplorasi sejarah daerah serta media partisipasi publik melalui fitur “Kontribusi Cerita”.
+
+
 
 ## Fitur-Fitur Utama
 Manajemen Konten Sejarah (CRUD & Kategori): Sebuah sistem back-end yang komprehensif bagi admin untuk mengelola (membuat, membaca, mengubah, dan menghapus) semua artikel dan data sejarah. Fitur ini juga mencakup kemampuan untuk membuat Kategori Sejarah, memungkinkan pengelompokan konten berdasarkan era, tema, atau jenis peristiwa.
@@ -15,20 +20,51 @@ Manajemen Konten Sejarah (CRUD & Kategori): Sebuah sistem back-end yang komprehe
 Website akan menampilkan daftar sejarah dalam format yang mudah dinavigasi (Tampilan Halaman Sejarah). Setiap item dapat di-klik untuk membuka Tampilan Detail Sejarah, yang menyajikan narasi lengkap, galeri foto, dan informasi terkait lainnya secara mendalam.
 Pencarian Sejarah: Sebuah fungsi pencarian yang kuat dan mudah digunakan, memungkinkan pengunjung untuk dengan cepat menemukan informasi sejarah berdasarkan kata kunci, nama peristiwa, atau kategori.
 
+
 # Dasbor Administrasi (Login, Register & Dashboard): 
 Area manajemen khusus yang aman dan hanya bisa diakses oleh admin melalui sistem Login dan Register. Dashboard Admin ini menjadi pusat kendali untuk mengelola konten, pengguna, dan semua aspek fungsional website.
 
 # User Flow Diagram (Alur Pengguna)
-Alur 1: Pelajar Mencari Informasi
-Beranda → Menggunakan Fitur Pencarian ("Perang Dunia II di Balikpapan") → Halaman Hasil Pencarian → Membuka Artikel "Pertempuran Balikpapan 1945" → Melihat Foto Terkait di Galeri → Mengutip Informasi.
+Alur 1: Alur 1: Pengguna Menjelajahi Halaman Sejarah
+Pengguna membuka Beranda.
+Memilih menu Halaman Sejarah.
+Sistem menampilkan daftar artikel sejarah dalam bentuk kartu atau grid.
+Pengguna menggulir dan memilih artikel yang ingin dibaca.
+Sistem menampilkan Halaman Detail Sejarah untuk artikel yang dipilih.
+
+![alt text](image.png)
 
 
-Alur 2: Warga Lokal Menjelajahi Sejarah
-Beranda → Masuk ke Fitur Linimasa Interaktif → Mengklik era "Penemuan Minyak" → Membaca ringkasan peristiwa → Mengklik tautan "Lihat Detail" → Membaca artikel lengkap tentang Bataafsche Petroleum Maatschappij (BPM).
+Alur 2: Pengguna memilih salah satu artikel dari Halaman Sejarah.
+Sistem membuka Halaman Detail Sejarah.
+Pengguna membaca narasi lengkap, melihat foto arsip, dan informasi tambahan seperti waktu atau lokasi kejadian.
+Pengguna dapat kembali ke Halaman Sejarah untuk melihat artikel lain.
+
+![alt text](image-1.png)
 
 
-Alur 3: Warga Lokal Ingin Berkontribusi
-Beranda → Menu Navigasi → Klik "Kontribusi Cerita" → Membaca Syarat & Ketentuan → Mengisi Formulir (Nama, Judul Cerita, Deskripsi, Unggah Foto) → Kirim → Menunggu Moderasi & Notifikasi Email.
+Alur 3: Pengguna membuka Beranda.
+Mengetik kata kunci tertentu di kolom Pencarian Sejarah, misalnya “Perang Dunia II”.
+Sistem menampilkan hasil pencarian berupa daftar artikel yang relevan.
+Pengguna memilih salah satu hasil dan diarahkan ke Halaman Detail Sejarah.
+
+Pengguna membuka Beranda.
+Mengetik kata kunci tertentu di kolom Pencarian Sejarah, misalnya “Perang Dunia II”.
+Sistem menampilkan hasil pencarian berupa daftar artikel yang relevan.
+Pengguna memilih salah satu hasil dan diarahkan ke Halaman Detail Sejarah.
+
+Alur 4: Pengguna Menelusuri Berdasarkan Kategori Sejarah
+Pengguna membuka menu Kategori Sejarah.
+Memilih salah satu kategori seperti Pra-Minyak, Pendudukan Jepang, atau Era Modern.
+Sistem menampilkan Halaman Sejarah berisi artikel sesuai kategori yang dipilih.
+Pengguna mengklik salah satu artikel untuk melihat detail peristiwa.
+
+Alur 4: Pengguna Menelusuri Berdasarkan Kategori Sejarah
+Pengguna membuka menu Kategori Sejarah.
+Memilih salah satu kategori seperti Pra-Minyak, Pendudukan Jepang, atau Era Modern.
+Sistem menampilkan Halaman Sejarah berisi artikel sesuai kategori yang dipilih.
+Pengguna mengklik salah satu artikel untuk melihat detail peristiwa.
+
 
 ## Wireframe
 ![alt text](Home.png)
