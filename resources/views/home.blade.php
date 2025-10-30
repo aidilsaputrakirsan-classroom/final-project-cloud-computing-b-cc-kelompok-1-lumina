@@ -31,7 +31,7 @@
       <div class="container">
         <a class="navbar-brand" href="#">
           <img src="{{ asset('img/logo jelajah balikpapan.png') }}" alt="Logo" width="32" height="32" class="me-2">
-  Balikpapan
+  Jelajah Balikpapan
 
         </a>
         <form class="d-flex mx-auto" role="search" style="max-width: 350px;">
@@ -77,21 +77,21 @@
     <div id="mainCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?fit=crop&w=1200&q=80" class="d-block w-100" alt="Sejarah 1">
+          <img src="{{ asset('img/Kota-Balikpapan.jpg') }}" class="d-block w-100" alt="Sejarah 1">
           <div class="carousel-caption text-start">
             <h2>Balikpapan, Kota Minyak</h2>
             <p>Awal pertumbuhan sebagai pusat industri minyak di Kalimantan Timur. Sejarah panjang membawa dampak besar untuk perekonomian dan budaya lokal.</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?fit=crop&w=1200&q=80" class="d-block w-100" alt="Sejarah 2">
+          <img src="{{ asset('img/RDMP-Balikpapan2_1.jpg') }}" class="d-block w-100" alt="Sejarah 2">
           <div class="carousel-caption text-start">
             <h2>Pusat Energi Nasional</h2>
             <p>Sebagai penggerak utama migas, kota ini menjadi penopang kebutuhan nasional serta memiliki sejarah militer penting pada masa perang dunia.</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?fit=crop&w=1200&q=80" class="d-block w-100" alt="Sejarah 3">
+          <img src="{{ asset('img/34183-airy-rooms.jpg') }}" class="d-block w-100" alt="Sejarah 3">
           <div class="carousel-caption text-start">
             <h2>Ragam Budaya & Harmoni</h2>
             <p>Kota dengan banyak pendatang yang hidup berdampingan harmonis hingga kini. Balikpapan, cermin pluralisme Indonesia Timur.</p>
@@ -110,9 +110,65 @@
 
     <!-- HEADER TEMA -->
     <div class="main-header text-center">
-        <h1>Sejarah Balikpapan</h1>
-        <p>Kota penuh sejarah di tepian Kalimantan</p>
+        <h1>Balikpapan</h1>
+        <p>Bersih, Indah, Aman dan Nyaman</p>
     </div>
+
+    <!-- SECTION INFO SEJARAH BALIKPAPAN -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <h3 class="text-center fw-bold">Sejarah Balikpapan</h3>
+      <p class="text-center text-secondary mb-5" style="max-width:700px;margin:auto;">
+        Sejarah Balikpapan bermula sebagai desa nelayan yang terpencil, namun nasibnya berubah drastis dengan ditemukannya minyak. Titik penting dalam sejarahnya adalah 10 Februari 1897, tanggal pengeboran Sumur Mathilda yang pertama kali, yang kini diperingati sebagai hari jadi kota dan mengukuhkan statusnya sebagai "Kota Minyak". Mengenai asal-usul namanya, versi terpopuler adalah legenda sepuluh keping papan ("Balik Papan") milik Sultan Kutai yang hanyut dan ditemukan kembali di pantai, meski ada juga teori yang mengaitkannya dengan Suku Pasir Balik. Karena kekayaan sumber dayanya, Balikpapan menjadi lokasi pertempuran strategis yang sengit antara pasukan Jepang dan Sekutu selama Perang Dunia II, sebelum akhirnya berkembang menjadi pusat industri migas modern yang vital bagi Indonesia.
+      </p>
+      <div class="row text-center">
+        <div class="col-md-4 mb-4">
+          <div class="mx-auto mb-3" style="background:#f3f3f3; width:80px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <img src="{{ asset('img/logo_balikpapan_nyaman.webp') }}" alt="Visi Icon" style="width:40px; height:40px; object-fit:contain;">
+              <path d="M8.051 1.999A6.002 6.002 0 0 1 13.995 8H8v6.995A6.002 6.002 0 0 1 2.005 8.001a6.002 6.002 0 0 1 6.046-6.002zm1.5 6.001A1.5 1.5 0 1 1 8.05 6.001a1.5 1.5 0 0 1 1.501 1.999zm3.448 3.39a7 7 0 1 0-2.883 2.883 8 8 0 0 0 2.883-2.883z"/>
+            </svg>
+          </div>
+          <h5>Visi dan Misi Kota Balikpapan</h5>
+          <p class="text-secondary small">
+            Terwujudnya Balikpapan Sebagai Kota Terkemuka yang Nyaman Dihuni, Modern, dan Sejahtera Dalam Bingkai Madinatul Iman
+          </p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="mx-auto mb-3" style="background:#f3f3f3; width:80px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <img src="{{ asset('img/Logo bpn.png') }}" alt="Visi Icon" style="width:40px; height:40px; object-fit:contain;">
+              <path d="M7.5 1v2H2v13h12V3h-5.5V1h-1zm1 13h5v-9H2v9h5v-6h1v6zm0-7V4h5v3h-5zm-1 0H2V4h5v3z"/>
+            </svg>
+          </div>
+          <h5>Moto Kota Balikpapan</h5>
+          <p class="text-secondary small">
+            Motto kota Balikpapan adalah <span class="fw-bold">"Balikpapan Kota Beriman"</span>, yang merupakan singkatan dari <span class="fw-bold">Bersih, Indah, Aman, dan Nyaman</span>.
+          </p>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="mx-auto mb-3" style="background:#f3f3f3; width:80px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+            <img src="{{ asset('img/balikpapanMascot.png') }}" alt="Visi Icon" style="width:40px; height:40px; object-fit:contain;">
+              <path d="M8 9.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm4.5 3A4.5 4.5 0 0 0 8 8a4.5 4.5 0 0 0-4.5 4.5v.5A2.5 2.5 0 0 0 6 15h4a2.5 2.5 0 0 0 2.5-2.5v-.5z"/>
+            </svg>
+          </div>
+          <h5>Kenapa Dinamakan Balikpapan?</h5>
+          <p class="text-secondary small">
+            Nama "Balikpapan" berasal dari kisah rakyat setempat tentang Putri Petung yang berjuang menyelamatkan dirinya dengan ditelungkupkan di atas papan dan hanyut ke laut, sehingga disebut "papan yang terbalik".
+          </p>
+        </div>
+      </div>
+      <div class="card border-0 shadow-sm mt-4" style="background: #f7f7f7;">
+        <div class="card-body">
+          <div class="fw-bold pb-2" style="font-size:1.15rem;">Tau gak sih, kenapa kota ini dinamakan kota Balikpapan?</div>
+          <div style="font-size: 0.98rem; color: #666;">
+            Kisah Putri Petung, anak dari Raja Pasir untuk melindungi sang putri dari serangan musuh, raja terpaksa membuangnya ke laut saat masih bayi. Putri Petung diletak di atas selembar papan dan dilepaskan mengikuti arus laut. Namun, karena ombak yang kuat, papan itu terbalik, meninggalkan Putri Petung terikat di baliknya. Beberapa waktu kemudian, seorang nelayan menemukan anak putri dalam keadaan masih hidup dan terikat di balik papan tersebut. Sejak peristiwa itu, tempat pendaratannya dinamakan Balikpapan, yang berarti "papan yang terbalik".
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END SECTION INFO SEJARAH -->
 
     <!-- CONTENT BERITA / BLOG -->
     <div class="container my-5">
