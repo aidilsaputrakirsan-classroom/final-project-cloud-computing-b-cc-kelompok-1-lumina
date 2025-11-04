@@ -39,6 +39,13 @@ Route::get('/', function () {
 Route::get('/', [AuthController::class, 'index'])->name('home');
 Route::get('/sejarah', [AuthController::class, 'sejarah'])->name('sejarah');
 
+//===
+// Categories
+//===
+Route::get('/categories', function () {
+    return view('categories');
+})->name('categories');
+
 // ======================
 // Logout
 // ======================

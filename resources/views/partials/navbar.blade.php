@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
     <div class="container">
         {{-- Brand --}}
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}">SejarahKita</a>
+        <a class="navbar-brand fw-bold" href="{{ route('home') }}">JelajahBalikpapan</a>
 
         {{-- Tombol toggle (mobile view) --}}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto align-items-center">
 
-                {{-- ✅ Jika user belum login --}}
+                {{-- Jika user belum login --}}
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('home') }}">Home</a>
@@ -29,13 +29,14 @@
                            data-bs-toggle="dropdown" aria-expanded="false">
                             Categories
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Tokoh</a></li>
-                            <li><a class="dropdown-item" href="#">Peristiwa</a></li>
-                            <li><a class="dropdown-item" href="#">Tempat Bersejarah</a></li>
-                            <li><a class="dropdown-item" href="#">Budaya</a></li>
-                            <li><a class="dropdown-item" href="#">Ekonomi</a></li>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="/categories#tokoh">Tokoh</a></li>
+                        <li><a class="dropdown-item" href="/categories#peristiwa">Peristiwa</a></li>
+                        <li><a class="dropdown-item" href="/categories#tempat-bersejarah">Tempat Bersejarah</a></li>
+                        <li><a class="dropdown-item" href="/categories#budaya">Budaya</a></li>
+                        <li><a class="dropdown-item" href="/categories#ekonomi">Ekonomi</a></li>
                         </ul>
+
                     </li>
 
                     {{-- Tombol Profile/Login --}}
@@ -57,7 +58,7 @@
                         </a>
                     </li>
 
-                {{-- ✅ Jika user sudah login (baik user biasa atau admin) --}}
+                {{-- Jika user sudah login (baik user atau admin) --}}
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('profile') }}">

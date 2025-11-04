@@ -3,8 +3,9 @@
 @section('title', 'Profile Akun')
 
 @section('content')
-<div class="row justify-content-center">
+<div class="row justify-content-center my-5">
   <div class="col-lg-6 col-md-8">
+
     <div class="card border-0 shadow-lg rounded-4 mb-4">
       <div class="card-body p-5">
         <div class="d-flex align-items-center mb-4">
@@ -43,7 +44,7 @@
     <!-- Card terpisah untuk dashboard admin -->
     <div class="card border-0 shadow rounded-4 mb-4">
       <div class="card-body text-center py-4">
-        <h5 class="fw-bold mb-3"><i class="bi bi-speedometer2 me-2 text-warning"></i>Jalan Pintas Admin</h5>
+        <h5 class="fw-bold mb-3"><i class="bi bi-speedometer2 me-2 text-warning"></i>Admin Quick Access</h5>
         <a href="http://127.0.0.1:8000/dashboard" class="btn btn-warning fw-bold px-4 py-2"
            style="border-radius:10px; font-size:16px; letter-spacing:1px; box-shadow:0 2px 8px rgba(18,60,81,0.07);">
           <i class="bi bi-speedometer2 me-2"></i>

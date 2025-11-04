@@ -12,7 +12,7 @@
         <div class="col d-flex flex-column align-items-center">
             <div class="bg-light border rounded-2 d-flex justify-content-center align-items-center mb-3" style="width:220px; height:220px;">
                 {{-- Ganti src asset sesuai gambar artikel --}}
-                <img src="https://via.placeholder.com/200x200?text=Gambar" class="img-fluid" alt="Gambar Sejarah" style="object-fit:cover; max-width:95%; max-height:95%;">
+                <img src=".jpg" class="img-fluid" alt="Gambar Sejarah" style="object-fit:cover; max-width:95%; max-height:95%;">
             </div>
             <h5 class="fw-semibold text-center mb-1" style="font-size:1.13rem;">
                 @if($i%3==0)

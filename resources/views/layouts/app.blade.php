@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Jelajah Balikpapan')</title>
+    <title>@yield('title', 'Sejarah Balikpapan')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -65,7 +65,7 @@
             color: #fff;
             padding: 1.2rem 0;
             margin-top: 4rem;
-            font-size: 1.1rem;
+            font-size: 0.90rem;
             letter-spacing: 1px;
             font-family: 'Inter', Arial, Helvetica, sans-serif;
         }
@@ -75,6 +75,29 @@
         }
     </style>
 </head>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('a[href^="/categories#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var hash = link.hash; // ex: #tokoh
+      var isOnCategories = window.location.pathname === '/categories';
+      if (isOnCategories) {
+        // Sudah di halaman /categories, scroll ke target
+        var id = hash.replace('#','');
+        var target = document.getElementById(id);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: "smooth" });
+          history.replaceState(null, '', hash);
+        }
+      } else {
+        // Belum di /categories, biarkan default (pindah page)
+        // Tidak perlu preventDefault
+      }
+    });
+  });
+});
+</script>
 <body>
     {{-- Navbar --}}
     <nav class="navbar navbar-expand-lg navbar-custom mb-2">
@@ -112,11 +135,11 @@
                 Categories
               </a>
               <ul class="dropdown-menu dropdown-menu-dark">
-                <li><a class="dropdown-item" href="#">Tokoh</a></li>
-                <li><a class="dropdown-item" href="#">Peristiwa</a></li>
-                <li><a class="dropdown-item" href="#">Tempat Bersejarah</a></li>
-                <li><a class="dropdown-item" href="#">Budaya</a></li>
-                <li><a class="dropdown-item" href="#">Ekonomi</a></li>
+                <li><a class="dropdown-item" href="/categories#tokoh">Tokoh</a></li>
+                <li><a class="dropdown-item" href="/categories#peristiwa">Peristiwa</a></li>
+                <li><a class="dropdown-item" href="/categories#tempat-bersejarah">Tempat Bersejarah</a></li>
+                <li><a class="dropdown-item" href="/categories#budaya">Budaya</a></li>
+                <li><a class="dropdown-item" href="/categories#ekonomi">Ekonomi</a></li>
               </ul>
             </li>
 
