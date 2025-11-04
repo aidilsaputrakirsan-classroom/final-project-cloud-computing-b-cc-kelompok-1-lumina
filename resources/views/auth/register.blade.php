@@ -1,89 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Register | Lumina App</title>
+    <title>Sign Up</title>
     <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
+            font-family: 'Inter', Arial, Helvetica, sans-serif;
+            background: #123c51;
         }
         body {
             min-height: 100vh;
-            font-family: "Inter", sans-serif;
-            background: linear-gradient(110deg, #7161ef 60%, #8896f8 100%);
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .container-flex {
+        .register-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+        .register-card {
             background: #fff;
-            display: flex;
-            max-width: 540px;
-            min-height: 400px;
-            border-radius: 21px;
-            box-shadow: 0 8px 38px rgba(40,40,120,.12);
+            border-radius: 18px;
+            box-shadow: 0 8px 38px rgba(18,60,81,.08);
+            max-width: 370px;
             width: 100%;
-        }
-        .form-section {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 36px 32px;
-        }
-        .login-box {
-            width: 100%;
-            max-width: 320px;
+            padding: 36px 30px 28px 30px;
             margin: 0 auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .login-box h3 { margin: 0 0 16px 0; font-weight: 600; font-size: 21px; text-align: center; }
-        .form-group { margin-bottom: 16px; }
+        .register-card h3 {
+            margin-bottom: 22px;
+            font-size: 24px;
+            font-weight: 800;
+            color: #123c51;
+        }
+        .form-group {
+            margin-bottom: 16px;
+            width: 100%;
+        }
         .form-control {
-            width: 100%; border: 1.5px solid #dedfff; padding: 13px 14px; border-radius: 10px;
-            font-size: 16px; margin-top: 4px; background: #f6f8fc;
+            width: 100%;
+            border: 1.5px solid #dedfff;
+            padding: 12px 13px;
+            border-radius: 10px;
+            font-size: 15px;
+            margin-top: 4px;
+            background: #f6f8fc;
+            box-sizing: border-box;
+            transition: border 0.2s;
         }
-        .form-control:focus { outline: 2px solid #8794e5; }
-        .btn { display: block; width: 100%; background: #7161ef; color: #fff; padding: 12px;
-            border-radius: 10px; border: none; font-weight: 600; font-size: 16px; cursor: pointer; }
-        .btn:hover { background: #5b4ad0; }
-        .text-small { font-size: 14px; margin-top: 10px; text-align: center; }
-        .text-small a { color: #7161ef; text-decoration: underline; }
+        .form-control:focus {
+            border: 2px solid #ffe082;
+            outline: none;
+        }
+        .btn-signup {
+            width: 100%;
+            border-radius: 10px;
+            background: #123c51;
+            color: #ffe082;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 12px 0;
+            border: none;
+            cursor: pointer;
+            margin-top: 8px;
+            box-shadow: 0 3px 12px rgba(18,60,81,0.07);
+            transition: background 0.2s, color 0.2s;
+        }
+        .btn-signup:hover {
+            background: #ffe082;
+            color: #123c51;
+            border: 2px solid #123c51;
+        }
         .alert-danger {
-            background: #ffe4ec; padding: 8px 12px; color: #c21d49; border-radius: 8px;
-            font-size: 15px; margin-bottom: 14px; text-align: center;
+            background: #ffe4ec;
+            padding: 9px 13px;
+            color: #c21d49;
+            border-radius: 8px;
+            font-size: 15px;
+            margin-bottom: 13px;
+        }
+        .login-text {
+            margin-top: 16px;
+            font-size: 15px;
+        }
+        .login-text a {
+            color: #123c51;
+            text-decoration: underline;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
-<div class="container-flex">
-    <div class="form-section">
-        <div class="login-box">
-            <h3>Sign Up</h3>
-            <form method="POST" action="{{ route('register') }}">
-                @csrf
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Nama Lengkap" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" placeholder="Password" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" class="form-control" required>
-                </div>
-                @if ($errors->any())
-                    <div class="alert-danger">{{ $errors->first() }}</div>
-                @endif
-                <button type="submit" class="btn">Sign Up</button>
-            </form>
-            <div class="text-small">
-                Sudah punya akun? <a href="{{ route('login') }}">Login</a>
+<div class="register-container">
+    <div class="register-card">
+        <h3>Daftar Cess!</h3>
+        <form method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Nama Lengkap" class="form-control" required>
             </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Password" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" class="form-control" required>
+            </div>
+            @if ($errors->any())
+                <div class="alert-danger">{{ $errors->first() }}</div>
+            @endif
+            <button type="submit" class="btn-signup">Sign Up</button>
+        </form>
+        <div class="login-text">
+            Sudah punya akun? <a href="{{ route('login') }}">Login</a>
         </div>
     </div>
 </div>
