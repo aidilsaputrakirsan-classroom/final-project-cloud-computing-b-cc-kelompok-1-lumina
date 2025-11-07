@@ -107,7 +107,7 @@ class AuthController extends Controller
             abort(403, 'Akses ditolak. Hanya admin yang boleh masuk dashboard.');
         }
 
-        return view('auth.dashboard');
+        return view('admin.dashboard');
     }
 
     // ===============================

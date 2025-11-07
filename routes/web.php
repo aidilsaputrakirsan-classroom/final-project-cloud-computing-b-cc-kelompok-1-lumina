@@ -55,3 +55,18 @@ Route::get('/logout', function () {
     request()->session()->regenerateToken();
     return redirect('/');
 })->name('logout');
+
+// dashboard
+Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
+    ->middleware('auth')
+    ->name('admin.dashboard');
+
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\HistoryController;
+
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('histories', HistoryController::class);
+});
+
+
