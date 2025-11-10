@@ -24,7 +24,7 @@ class DashboardController extends Controller
         $totalSejarah = History::count();
         $totalKategori = Category::count(); // (Asumsi Anda punya Model Category)
 
-        // Tampilkan view di Langkah 6
+        // Tampilkan view di Langkah 7
         return view('admin.dashboard', compact(
             'sejarahTerbaru',
             'totalSejarah',

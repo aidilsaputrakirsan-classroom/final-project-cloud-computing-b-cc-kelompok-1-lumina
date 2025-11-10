@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title');          // Judul sejarah
+            $table->string('image')->nullable(); // Gambar sejarah (opsional)
+            $table->text('content');          // Bacaan/artikel
+            $table->date('event_date');       // Tanggal peristiwa
+            $table->timestamps();             // created_at & updated_at
         });
     }
 

@@ -1,10 +1,17 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-class Category extends Model {
-    protected $fillable = ['name', 'slug', 'description', 'icon', 'is_active'];
-    public function histories() {
-        return $this->hasMany(History::class);
-    }
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Category extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ['name', 'slug', 'description', 'is_active'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }

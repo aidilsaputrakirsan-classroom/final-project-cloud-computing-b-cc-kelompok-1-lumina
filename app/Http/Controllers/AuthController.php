@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers; // <-- Namespace sudah benar
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,20 +12,22 @@ class AuthController extends Controller
     // LOGIN & REGISTER
     // ===============================
 
-    // Tampilkan halaman login
     public function showLoginForm()
     {
         return view('auth.login');
     }
 
-    // Proses login
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('home');
+
+            // ===================================
+            // PERBAIKAN: Arahkan ke dashboard admin
+            // ===================================
+            return redirect()->route('admin.dashboard');
         }
 
         return back()->withErrors([
@@ -33,13 +35,11 @@ class AuthController extends Controller
         ]);
     }
 
-    // Tampilkan halaman register
     public function showRegisterForm()
     {
         return view('auth.register');
     }
 
-    // Proses register
     public function register(Request $request)
     {
         $request->validate([
@@ -59,24 +59,21 @@ class AuthController extends Controller
     }
 
     // ===============================
-    // USER PROFILE
+    // PERBAIKAN: Mengembalikan Fungsi Profile
     // ===============================
 
-    // Tampilkan halaman profile
     public function profile()
     {
         $user = Auth::user();
         return view('auth.profile', compact('user'));
     }
 
-    // Tampilkan form edit profile
     public function editProfile()
     {
         $user = Auth::user();
         return view('auth.edit-profile', compact('user'));
     }
 
-    // Proses update profile
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
@@ -94,67 +91,4 @@ class AuthController extends Controller
         return redirect()->route('profile')
                          ->with('status', 'Profil berhasil diupdate!');
     }
-
-    // ===============================
-    // DASHBOARD ADMIN
-    // ===============================
-
-    public function dashboard()
-    {
-        $user = Auth::user();
-
-        if (!$user || $user->role !== 'admin') {
-            abort(403, 'Akses ditolak. Hanya admin yang boleh masuk dashboard.');
-        }
-
-        return view('admin.dashboard');
-    }
-
-    // ===============================
-    // SEJARAH
-    // ===============================
-
-    public function sejarah()
-    {
-        // Data berita sejarah
-        $news = [
-            [
-                'title' => 'Berita Sejarah 1',
-                'desc'  => 'Deskripsi berita sejarah pertama.',
-                'img'   => 'https://images.unsplash.com/photo-1?fit=crop&w=600&q=80',
-                'link'  => '#'
-            ],
-            [
-                'title' => 'Berita Sejarah 2',
-                'desc'  => 'Deskripsi berita sejarah kedua.',
-                'img'   => 'https://images.unsplash.com/photo-2?fit=crop&w=600&q=80',
-                'link'  => '#'
-            ],
-        ];
-
-        // Render halaman sejarah dengan layout homepage
-        return view('sejarah', compact('news'));
-    }
-
-    public function index()
-    {
-    // Misal ini homepage sama dengan sejarah
-    $news = [
-        [
-            'title' => 'Berita Sejarah 1',
-            'desc'  => 'Deskripsi berita sejarah pertama.',
-            'img'   => 'https://images.unsplash.com/photo-1?fit=crop&w=600&q=80',
-            'link'  => '#'
-        ],
-        [
-            'title' => 'Berita Sejarah 2',
-            'desc'  => 'Deskripsi berita sejarah kedua.',
-            'img'   => 'https://images.unsplash.com/photo-2?fit=crop&w=600&q=80',
-            'link'  => '#'
-        ],
-    ];
-
-    return view('home', compact('news'));
-    }
-
 }
