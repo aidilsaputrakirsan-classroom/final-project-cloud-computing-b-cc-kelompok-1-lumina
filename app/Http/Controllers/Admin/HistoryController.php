@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\History;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -28,7 +29,8 @@ class HistoryController extends Controller
     // CREATE: Form tambah
     public function create(): View
     {
-        return view('admin.histories.create');
+        $categories = Category::all(); // pastikan categories tersedia
+        return view('admin.histories.create', compact('categories'));
     }
 
     // CREATE: Simpan data baru
@@ -42,6 +44,7 @@ class HistoryController extends Controller
             'category_id'  => 'nullable|integer|exists:categories,id',
             'is_published' => 'nullable|boolean',
         ]);
+
         $data['slug'] = $this->makeUniqueSlug($data['title']);
 
         if ($request->hasFile('image')) {
@@ -54,17 +57,15 @@ class HistoryController extends Controller
 
         History::create($data);
 
-        // Jika langsung dipublish, arahkan ke /sejarah
-        if ($data['is_published']) {
-            return redirect()->route('sejarah.index')->with('success', 'Sejarah berhasil dipublikasikan!');
-        }
-        return redirect()->route('admin.histories.index')->with('success', 'Sejarah berhasil ditambahkan.');
+        $message = $data['is_published'] ? 'Sejarah berhasil dipublikasikan!' : 'Sejarah berhasil ditambahkan.';
+        return redirect()->route($data['is_published'] ? 'sejarah.index' : 'admin.histories.index')->with('success', $message);
     }
 
     // UPDATE: Form edit
     public function edit(History $history): View
     {
-        return view('admin.histories.edit', compact('history'));
+        $categories = Category::all(); // kirim kategori ke view
+        return view('admin.histories.edit', compact('history', 'categories'));
     }
 
     // UPDATE: Simpan perubahan
@@ -102,12 +103,9 @@ class HistoryController extends Controller
 
         $history->update($data);
 
-        // Jika dipublish, redirect ke halaman /sejarah (user)
-        if ($data['is_published']) {
-            return redirect()->route('sejarah.index')->with('success', 'Sejarah berhasil dipublikasikan!');
-        }
-        // Jika tidak publish, tetap ke admin dashboard
-        return redirect()->route('admin.histories.index')->with('success', 'Sejarah berhasil diperbarui.');
+        $message = $data['is_published'] ? 'Sejarah berhasil dipublikasikan!' : 'Sejarah berhasil diperbarui.';
+        $route = $data['is_published'] ? 'sejarah.index' : 'admin.histories.index';
+        return redirect()->route($route)->with('success', $message);
     }
 
     // DELETE
@@ -124,7 +122,6 @@ class HistoryController extends Controller
     | Helpers
     ========================================================================= */
 
-    // Buat slug unik dari title.
     private function makeUniqueSlug(string $title, ?int $ignoreId = null): string
     {
         $base = Str::slug($title);
@@ -140,7 +137,6 @@ class HistoryController extends Controller
         return $slug;
     }
 
-    // Pastikan slug manual tetap unik.
     private function ensureUniqueSlug(string $raw, ?int $ignoreId = null): string
     {
         $base = Str::slug($raw);
@@ -156,7 +152,6 @@ class HistoryController extends Controller
         return $slug;
     }
 
-    // Terima dd/mm/yyyy atau yyyy-mm-dd, kembalikan Carbon (awal hari).
     private function parseEventDate(string $value): Carbon
     {
         $value = trim($value);

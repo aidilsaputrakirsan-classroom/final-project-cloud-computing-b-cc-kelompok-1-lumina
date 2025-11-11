@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
-// Controller imports
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SejarahController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -21,15 +19,17 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// Halaman Categories (static)
-Route::get('/categories', function () {
-    return view('categories');
-})->name('categories');
+// Halaman Categories (dinamis dari database)
+Route::get('/categories', [SejarahController::class, 'categories'])->name('categories');
 
 // Halaman publik: Daftar & detail sejarah
-Route::get('/sejarah', [SejarahController::class, 'index'])->name('sejarah.index');
-Route::get('/sejarah/{slug}', [SejarahController::class, 'show'])->name('sejarah.show');
+Route::prefix('sejarah')->group(function () {
+    // Daftar semua sejarah atau filter via query ?category=
+    Route::get('/', [SejarahController::class, 'index'])->name('sejarah.index');
 
+    // Detail sejarah berdasarkan slug
+    Route::get('/{history:slug}', [SejarahController::class, 'show'])->name('sejarah.show');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +43,6 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
-
 /*
 |--------------------------------------------------------------------------
 | LOGOUT (Auth Only)
@@ -56,7 +55,6 @@ Route::post('/logout', function () {
     return redirect()->route('home');
 })->middleware('auth')->name('logout');
 
-
 /*
 |--------------------------------------------------------------------------
 | PROTECTED ROUTES (AUTH ONLY)
@@ -65,9 +63,11 @@ Route::post('/logout', function () {
 Route::middleware('auth')->group(function () {
 
     // Profile User
-    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    Route::get('/profile/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
-    Route::post('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [AuthController::class, 'profile'])->name('profile');
+        Route::get('/edit', [AuthController::class, 'editProfile'])->name('profile.edit');
+        Route::post('/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+    });
 
     // Redirect dashboard ke admin
     Route::get('/dashboard', function () {
