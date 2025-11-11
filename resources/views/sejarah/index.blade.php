@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<h2 style="text-align:center;">Info <span style="color:#FFD300;">Balikpapan</span></h2>
+<h1 class="fw-bold display-4 mb-2 text-center" style="color:#1E2A36;">
+    Info <span class="text-warning">Balikpapan</span>
+</h1>
 <div style="display: flex; flex-wrap: wrap; gap:40px; justify-content:center;">
     @foreach($histories as $history)
     <div style="width:300px;background:#fff;border-radius:16px;padding:20px;margin:20px;text-align:center;">
