@@ -1,63 +1,58 @@
-@extends('layouts.admin')
+@extends('layouts.admin') @section('content')
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Daftar Kategori</h2>
+        <a href="{{ route('admin.categories.create') }}" class="btn btn-primary">Tambah Kategori</a>
+    </div>
 
-@section('title','Kategori')
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
-@section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="mb-0">Daftar Kategori</h3>
-    <a href="{{ route('admin.categories.create') }}" class="btn btn-success">Tambah Kategori Baru</a>
-</div>
-
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
-
-<div class="card">
-  <div class="card-body p-0">
-    <div class="table-responsive">
-      <table class="table mb-0 align-middle">
+    <table class="table table-bordered table-striped align-middle">
         <thead>
-          <tr>
-            <th>#</th>
-            <th>Nama</th>
-            <th>Slug</th>
-            <th>Status</th>
-            <th>Dibuat</th>
-            <th>Aksi</th>
-          </tr>
+            <tr>
+                <th>Nama</th>
+                <th>Slug</th>
+                <th>Deskripsi</th>
+                <th>Status</th>
+                <th>Dibuat</th>
+                <th>Aksi</th>
+            </tr>
         </thead>
         <tbody>
-          @forelse($categories as $cat)
-          <tr>
-            <td>{{ $loop->iteration + ($categories->currentPage()-1)*$categories->perPage() }}</td>
-            <td>{{ $cat->name }}</td>
-            <td>{{ $cat->slug }}</td>
-            <td>
-              <span class="badge bg-{{ $cat->is_active ? 'success':'secondary' }}">
-                {{ $cat->is_active ? 'Aktif':'Nonaktif' }}
-              </span>
-            </td>
-            <td>{{ $cat->created_at?->format('d M Y') }}</td>
-            <td class="d-flex gap-2">
-              <a href="{{ route('admin.categories.edit', $cat->id) }}" class="btn btn-sm btn-primary">Edit</a>
-              <form action="{{ route('admin.categories.destroy', $cat->id) }}" method="POST" onsubmit="return confirm('Hapus kategori ini?')">
-                @csrf @method('DELETE')
-                <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
-              </form>
-            </td>
-          </tr>
-          @empty
-          <tr>
-            <td colspan="6" class="text-center text-muted py-4">Belum ada kategori.</td>
-          </tr>
-          @endforelse
+            @forelse ($categories as $category)
+                <tr>
+                    <td>{{ $category->name }}</td>
+                    <td>{{ $category->slug }}</td>
+                    <td>{{ $category->description ?? '-' }}</td>
+                    <td>
+                        @if ($category->is_active)
+                            <span class="badge bg-success">Aktif</span>
+                        @else
+                            <span class="badge bg-secondary">Nonaktif</span>
+                        @endif
+                    </td>
+                    <td>{{ $category->created_at->format('d M Y') }}</td>
+                    <td>
+                        <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6" class="text-center">Belum ada kategori.</td>
+                </tr>
+            @endforelse
         </tbody>
-      </table>
-    </div>
-  </div>
-</div>
+    </table>
 
-<div class="mt-3">
-    {{ $categories->links() }}
+    <div class="d-flex justify-content-center">
+        {{ $categories->links() }}
+    </div>
 </div>
 @endsection

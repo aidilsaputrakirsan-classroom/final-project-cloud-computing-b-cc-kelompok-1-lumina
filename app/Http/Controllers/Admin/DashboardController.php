@@ -1,10 +1,11 @@
 <?php
-// LOKASI: app/Http/Controllers/DashboardController.php
+// LOKASI: app/Http/Controllers/Admin/DashboardController.php
 
-namespace App\Http\Controllers; // <-- Pastikan namespace TANPA '\Admin'
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use App\Models\History;
 use App\Models\Category;
 

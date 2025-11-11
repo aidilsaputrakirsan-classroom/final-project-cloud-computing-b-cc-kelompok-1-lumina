@@ -6,15 +6,16 @@ use Illuminate\Support\Facades\Auth;
 // Controller imports
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SejarahController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\HistoryController;
 
 /*
 |--------------------------------------------------------------------------
 | ROUTES PUBLIK
 |--------------------------------------------------------------------------
 */
+
 // Halaman Home
 Route::get('/', function () {
     return view('home');
@@ -25,7 +26,7 @@ Route::get('/categories', function () {
     return view('categories');
 })->name('categories');
 
-// Halaman publik: Daftar & detail sejarah (pastikan controller & blade sudah sesuai!)
+// Halaman publik: Daftar & detail sejarah
 Route::get('/sejarah', [SejarahController::class, 'index'])->name('sejarah.index');
 Route::get('/sejarah/{slug}', [SejarahController::class, 'show'])->name('sejarah.show');
 
@@ -42,6 +43,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
 });
 
+
 /*
 |--------------------------------------------------------------------------
 | LOGOUT (Auth Only)
@@ -53,6 +55,7 @@ Route::post('/logout', function () {
     request()->session()->regenerateToken();
     return redirect()->route('home');
 })->middleware('auth')->name('logout');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -71,7 +74,11 @@ Route::middleware('auth')->group(function () {
         return redirect()->route('admin.dashboard');
     })->name('dashboard');
 
-    // Admin routes group
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN ROUTES
+    |--------------------------------------------------------------------------
+    */
     Route::prefix('admin')->name('admin.')->group(function () {
         // Dashboard Admin
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

@@ -1,45 +1,32 @@
 @extends('layouts.admin')
 
-@section('title','Edit Kategori')
-
 @section('content')
-<h3 class="mb-3">Edit Kategori</h3>
+<div class="container">
+    <h2>Edit Kategori</h2>
 
-@if ($errors->any())
-  <div class="alert alert-danger">
-    <ul class="mb-0">
-      @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-      @endforeach
-    </ul>
-  </div>
-@endif
+    <form action="{{ route('admin.categories.update', $category) }}" method="POST">
+        @csrf
+        @method('PUT')
 
-<div class="card">
-  <div class="card-body">
-    <form action="{{ route('admin.categories.update', $category->id) }}" method="POST">
-      @csrf @method('PUT')
+        <div class="mb-3">
+            <label>Nama Kategori</label>
+            <input type="text" name="name" class="form-control" value="{{ old('name', $category->name) }}" required>
+            @error('name') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label">Nama Kategori <span class="text-danger">*</span></label>
-        <input type="text" name="name" class="form-control" value="{{ old('name', $category->name) }}" required>
-      </div>
+        <div class="mb-3">
+            <label>Deskripsi</label>
+            <textarea name="description" class="form-control" rows="3">{{ old('description', $category->description) }}</textarea>
+            @error('description') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label">Deskripsi</label>
-        <textarea name="description" class="form-control" rows="3">{{ old('description', $category->description) }}</textarea>
-      </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" name="is_active" value="1" class="form-check-input" {{ $category->is_active ? 'checked' : '' }}>
+            <label class="form-check-label">Aktif</label>
+        </div>
 
-      <div class="form-check form-switch mb-3">
-        <input class="form-check-input" type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $category->is_active) ? 'checked' : '' }}>
-        <label class="form-check-label" for="is_active">Aktif</label>
-      </div>
-
-      <div class="d-flex gap-2">
-        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-secondary">Batal</a>
-        <button type="submit" class="btn btn-primary">Update</button>
-      </div>
+        <button type="submit" class="btn btn-success">Update</button>
+        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
-  </div>
 </div>
 @endsection
