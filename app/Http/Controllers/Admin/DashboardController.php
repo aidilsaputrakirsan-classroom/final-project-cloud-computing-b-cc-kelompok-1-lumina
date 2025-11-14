@@ -1,35 +1,34 @@
 <?php
-// LOKASI: app/Http/Controllers/Admin/DashboardController.php
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\History;
 use App\Models\Category;
+use App\Models\History;
+use App\Models\Destination;
 
 class DashboardController extends Controller
 {
+    /**
+     * Tampilkan halaman dashboard admin.
+     */
     public function index()
     {
-        $user = Auth::user();
+        // Statistik utama
+        $totalSejarah   = History::count();
+        $totalKategori  = Category::count();
+        $totalWisata    = Destination::count();        // <- ini untuk "Total Wisata"
+        $kategoriAktif  = $totalKategori;              // sesuaikan kalau punya flag is_active
 
-        // Cek jika user adalah admin
-        if (!$user || $user->role !== 'admin') {
-            abort(403, 'Akses ditolak. Hanya admin.');
-        }
-
-        // Ambil data untuk box di dashboard
+        // Data sejarah terbaru untuk tabel bawah
         $sejarahTerbaru = History::latest()->take(5)->get();
-        $totalSejarah = History::count();
-        $totalKategori = Category::count(); // (Asumsi Anda punya Model Category)
 
-        // Tampilkan view di Langkah 6
         return view('admin.dashboard', compact(
-            'sejarahTerbaru',
             'totalSejarah',
-            'totalKategori'
+            'totalKategori',
+            'totalWisata',
+            'kategoriAktif',
+            'sejarahTerbaru'
         ));
     }
 }

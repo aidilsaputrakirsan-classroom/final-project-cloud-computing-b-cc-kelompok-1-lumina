@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    {{-- Notifikasi sukses --}}
+    {{-- Flash message sukses --}}
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
@@ -34,7 +34,7 @@
                                 <td>{{ $d->name }}</td>
                                 <td>
                                     @if($d->location)
-                                        <a href="{{ $d->location }}" target="_blank">
+                                        <a href="{{ $d->location }}" target="_blank" rel="noopener">
                                             Lihat di Maps
                                         </a>
                                     @else
@@ -54,7 +54,7 @@
                                               onsubmit="return confirm('Yakin mau hapus destinasi ini?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger btn-sm">
+                                            <button type="submit" class="btn btn-danger btn-sm">
                                                 Hapus
                                             </button>
                                         </form>

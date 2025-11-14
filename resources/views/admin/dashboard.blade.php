@@ -36,7 +36,7 @@
         .btn-pill { border-radius: 999px; padding: .75rem 1.1rem; font-weight: 700; }
         .table-wrap { border-radius: 14px; overflow: hidden; box-shadow: 0 10px 18px rgba(0, 0, 0, .06); }
         .footer-bar { background: var(--navy); color: #fff; }
-        .col-actions { width: 170px; } /* lebar kolom Aksi */
+        .col-actions { width: 170px; }
     </style>
 </head>
 <body>
@@ -62,37 +62,52 @@
     {{-- HERO --}}
     <section class="container mt-5">
         <h1 class="page-title">Selamat datang, Admin!</h1>
-        <p class="subtitle">Pantau dan kelola seluruh sejarah & kategori kota Balikpapan dengan mudah.</p>
+        <p class="subtitle">
+            Pantau dan kelola seluruh sejarah, kategori, dan destinasi wisata kota Balikpapan dengan mudah.
+        </p>
 
         {{-- STAT CARDS --}}
         <div class="row g-4 mt-2">
+            {{-- Total Sejarah --}}
             <div class="col-md-3">
                 <div class="card stat-card grad-cyan">
                     <div class="px-4">
                         <h6>Total Sejarah</h6>
                         <div class="big">{{ $totalSejarah ?? 0 }}</div>
-                        <a class="card-link mt-2 d-inline-block" href="{{ route('admin.histories.index') }}">Lihat Semua</a>
+                        <a class="card-link mt-2 d-inline-block" href="{{ route('admin.histories.index') }}">
+                            Lihat Semua
+                        </a>
                     </div>
                 </div>
             </div>
+
+            {{-- Total Kategori --}}
             <div class="col-md-3">
                 <div class="card stat-card grad-green">
                     <div class="px-4">
                         <h6>Total Kategori</h6>
                         <div class="big">{{ $totalKategori ?? 0 }}</div>
-                        <a class="card-link mt-2 d-inline-block" href="{{ route('admin.categories.index') }}">Lihat Semua</a>
+                        <a class="card-link mt-2 d-inline-block" href="{{ route('admin.categories.index') }}">
+                            Lihat Semua
+                        </a>
                     </div>
                 </div>
             </div>
+
+            {{-- TOTAL WISATA (BARU, GANTI DARI DIPUBLIKASIKAN) --}}
             <div class="col-md-3">
                 <div class="card stat-card grad-orange">
                     <div class="px-4">
-                        <h6>Dipublikasikan</h6>
-                        <div class="big">{{ $totalDipublikasikan ?? 0 }}</div>
-                        <span class="d-inline-block mt-2" style="opacity:.85">—</span>
+                        <h6>Total Wisata</h6>
+                        <div class="big">{{ $totalWisata ?? 0 }}</div>
+                        <a class="card-link mt-2 d-inline-block" href="{{ route('admin.destinations.index') }}">
+                            Lihat Semua
+                        </a>
                     </div>
                 </div>
             </div>
+
+            {{-- Kategori Aktif --}}
             <div class="col-md-3">
                 <div class="card stat-card grad-sand">
                     <div class="px-4">
@@ -113,6 +128,9 @@
                 <a href="{{ route('admin.categories.create') }}" class="btn btn-success btn-pill">
                     Tambah Kategori Baru
                 </a>
+                <a href="{{ route('admin.destinations.create') }}" class="btn btn-warning btn-pill">
+                    Tambah Wisata Baru
+                </a>
             </div>
         </div>
 
@@ -130,7 +148,7 @@
                             <th>Tanggal Event</th>
                             <th>Status</th>
                             <th>Dibuat</th>
-                            <th class="col-actions">Aksi</th> {{-- kolom baru --}}
+                            <th class="col-actions">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -142,10 +160,13 @@
                                     </a>
                                 </td>
                                 <td>{{ $item->category->name ?? '—' }}</td>
-                                <td>{{ $item->event_date ? \Illuminate\Support\Carbon::parse($item->event_date)->translatedFormat('d M Y') : '—' }}</td>
+                                <td>
+                                    {{ $item->event_date
+                                        ? \Illuminate\Support\Carbon::parse($item->event_date)->translatedFormat('d M Y')
+                                        : '—' }}
+                                </td>
                                 <td>
                                     @php
-                                        // sesuaikan dengan field di modelmu: status atau is_published
                                         $status = $item->status ?? ($item->is_published ? 'published' : 'draft');
                                         $badge = [
                                             'published' => 'success',
@@ -156,8 +177,6 @@
                                     <span class="badge bg-{{ $badge }}">{{ ucfirst($status) }}</span>
                                 </td>
                                 <td>{{ $item->created_at?->diffForHumans() ?? '—' }}</td>
-
-                                {{-- Aksi Edit/Hapus --}}
                                 <td>
                                     <div class="d-flex gap-2">
                                         <a href="{{ route('admin.histories.edit', $item->id) }}"

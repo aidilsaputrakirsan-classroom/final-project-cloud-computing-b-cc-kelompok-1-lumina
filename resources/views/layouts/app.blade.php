@@ -44,18 +44,23 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
 
-                    <!-- Search -->
-                    <li class="nav-item me-2">
-                        <form class="d-flex search-form" role="search">
-                            <input class="form-control rounded-pill me-1" type="search" placeholder="Ketik disini..." aria-label="Search">
-                            <button class="btn btn-warning rounded-pill" type="submit">Cari</button>
-                        </form>
-                    </li>
+    <!-- Search -->
+    <li class="nav-item me-2">
+        <form class="d-flex search-form" role="search">
+            <input class="form-control rounded-pill me-1" type="search" placeholder="Ketik disini..." aria-label="Search">
+            <button class="btn btn-warning rounded-pill" type="submit">Cari</button>
+        </form>
+    </li>
 
-                    <!-- Home -->
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="{{ route('home') }}">Home</a>
-                    </li>
+    <!-- Home -->
+    <li class="nav-item me-3">
+        <a class="nav-link" href="{{ route('home') }}">Home</a>
+    </li>
+
+    <!-- Wisata -->
+    <li class="nav-item me-3">
+        <a class="nav-link" href="{{ route('wisata.index') }}">Wisata</a>
+    </li>
 
                     <!-- Categories (dinamis dari DB) -->
                     <li class="nav-item dropdown me-2">

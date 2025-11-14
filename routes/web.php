@@ -7,6 +7,9 @@ use App\Http\Controllers\SejarahController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HistoryController;
+use App\Http\Controllers\Admin\DestinationController;
+use App\Models\Category;
+use App\Models\Destination;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +19,26 @@ use App\Http\Controllers\Admin\HistoryController;
 
 // Halaman Home
 Route::get('/', function () {
-    return view('home');
+    $categories = Category::all();
+    return view('home', compact('categories'));
 })->name('home');
+
+// Halaman Wisata publik (isi dari tabel destinations)
+// routes/web.php
+
+Route::get('/wisata', function () {
+    $categories   = Category::all();
+    $destinations = Destination::latest()->paginate(9);
+
+    return view('wisata.index', compact('categories', 'destinations'));
+})->name('wisata.index');
 
 // Halaman Categories (dinamis dari database)
 Route::get('/categories', [SejarahController::class, 'categories'])->name('categories');
 
 // Halaman publik: Daftar & detail sejarah
 Route::prefix('sejarah')->group(function () {
-    // Daftar semua sejarah atau filter via query ?category=
     Route::get('/', [SejarahController::class, 'index'])->name('sejarah.index');
-
-    // Detail sejarah berdasarkan slug
     Route::get('/{history:slug}', [SejarahController::class, 'show'])->name('sejarah.show');
 });
 
@@ -52,6 +63,7 @@ Route::post('/logout', function () {
     Auth::logout();
     request()->session()->invalidate();
     request()->session()->regenerateToken();
+
     return redirect()->route('home');
 })->middleware('auth')->name('logout');
 
@@ -88,5 +100,8 @@ Route::middleware('auth')->group(function () {
 
         // CRUD History (Sejarah)
         Route::resource('histories', HistoryController::class);
+
+        // CRUD Destination / Wisata
+        Route::resource('destinations', DestinationController::class);
     });
 });
