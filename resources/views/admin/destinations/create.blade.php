@@ -20,7 +20,9 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.destinations.store') }}" method="POST">
+            <form action="{{ route('admin.destinations.store') }}"
+                  method="POST"
+                  enctype="multipart/form-data">
                 @csrf
 
                 {{-- Nama Tempat --}}
@@ -31,8 +33,8 @@
                         name="name"
                         id="name"
                         class="form-control @error('name') is-invalid @enderror"
-                        value="{{ old('name') }}"
                         placeholder="Contoh: Pantai Manggar Segarasari"
+                        value="{{ old('name') }}"
                         required
                     >
                     @error('name')
@@ -64,8 +66,8 @@
                         name="location"
                         id="location"
                         class="form-control @error('location') is-invalid @enderror"
-                        value="{{ old('location') }}"
                         placeholder="https://maps.google.com/..."
+                        value="{{ old('location') }}"
                         required
                     >
                     @error('location')
@@ -73,6 +75,24 @@
                     @enderror
                     <div class="form-text">
                         Salin URL dari Google Maps (menu “Bagikan” → “Salin link”).
+                    </div>
+                </div>
+
+                {{-- Foto Wisata --}}
+                <div class="mb-3">
+                    <label for="image" class="form-label">Foto Wisata</label>
+                    <input
+                        type="file"
+                        name="image"
+                        id="image"
+                        class="form-control @error('image') is-invalid @enderror"
+                        accept="image/*"
+                    >
+                    @error('image')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <div class="form-text">
+                        Format: JPG, JPEG, PNG, atau WEBP (maks. 2 MB).
                     </div>
                 </div>
 

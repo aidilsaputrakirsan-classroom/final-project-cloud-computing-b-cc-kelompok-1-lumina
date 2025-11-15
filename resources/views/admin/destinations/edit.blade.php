@@ -20,7 +20,9 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.destinations.update', $destination->id) }}" method="POST">
+            <form action="{{ route('admin.destinations.update', $destination->id) }}"
+                  method="POST"
+                  enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -71,6 +73,33 @@
                     @enderror
                     <div class="form-text">
                         Pastikan link berasal dari tombol “Bagikan” di Google Maps.
+                    </div>
+                </div>
+
+                {{-- Foto Wisata --}}
+                <div class="mb-3">
+                    <label for="image" class="form-label">Foto Wisata</label>
+
+                    @if($destination->image)
+                        <div class="mb-2">
+                            <img src="{{ asset('storage/'.$destination->image) }}"
+                                 alt="Foto {{ $destination->name }}"
+                                 style="max-width: 200px; border-radius: 8px;">
+                        </div>
+                    @endif
+
+                    <input
+                        type="file"
+                        name="image"
+                        id="image"
+                        class="form-control @error('image') is-invalid @enderror"
+                        accept="image/*"
+                    >
+                    @error('image')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    <div class="form-text">
+                        Biarkan kosong jika tidak ingin mengganti foto.
                     </div>
                 </div>
 

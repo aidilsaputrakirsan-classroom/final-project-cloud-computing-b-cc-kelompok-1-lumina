@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Destination;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DestinationController extends Controller
 {
@@ -39,7 +40,14 @@ class DestinationController extends Controller
             'name'        => 'required|string|max:255',   // nama tempat
             'description' => 'required|string',           // deskripsi
             'location'    => 'required|string',           // link Google Maps
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        // upload foto jika ada
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')
+                                     ->store('destinations', 'public');
+        }
 
         Destination::create($data);
 
@@ -67,7 +75,18 @@ class DestinationController extends Controller
             'name'        => 'required|string|max:255',
             'description' => 'required|string',
             'location'    => 'required|string',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+
+        // kalau upload foto baru, hapus yang lama lalu simpan yang baru
+        if ($request->hasFile('image')) {
+            if ($destination->image) {
+                Storage::disk('public')->delete($destination->image);
+            }
+
+            $data['image'] = $request->file('image')
+                                     ->store('destinations', 'public');
+        }
 
         $destination->update($data);
 
@@ -80,6 +99,11 @@ class DestinationController extends Controller
      */
     public function destroy(Destination $destination)
     {
+        // hapus file foto jika ada
+        if ($destination->image) {
+            Storage::disk('public')->delete($destination->image);
+        }
+
         $destination->delete();
 
         return redirect()->route('admin.destinations.index')

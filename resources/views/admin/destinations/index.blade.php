@@ -22,6 +22,7 @@
                 <table class="table table-bordered align-middle mb-0">
                     <thead class="table-light">
                         <tr>
+                            <th>Foto</th>
                             <th>Nama Wisata</th>
                             <th>Link Google Maps</th>
                             <th>Deskripsi Singkat</th>
@@ -31,6 +32,15 @@
                     <tbody>
                         @forelse($destinations as $d)
                             <tr>
+                                <td>
+                                    @if($d->image)
+                                        <img src="{{ asset('storage/'.$d->image) }}"
+                                             alt="Foto {{ $d->name }}"
+                                             style="width:70px; height:70px; object-fit:cover; border-radius:6px;">
+                                    @else
+                                        <span class="text-muted">—</span>
+                                    @endif
+                                </td>
                                 <td>{{ $d->name }}</td>
                                 <td>
                                     @if($d->location)
@@ -63,7 +73,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center text-muted py-4">
+                                <td colspan="5" class="text-center text-muted py-4">
                                     Belum ada destinasi wisata yang tersimpan.
                                 </td>
                             </tr>

@@ -9,13 +9,10 @@ class Destination extends Model
 {
     use HasFactory;
 
-    // Nama tabel -> default "destinations", jadi ini boleh tidak ditulis
-    // protected $table = 'destinations';
-
-    // Kolom yang boleh di-mass assign
     protected $fillable = [
-        'name',        // nama tempat wisata
-        'description', // deskripsi
-        'location',    // link google maps
+        'name',
+        'description',
+        'location',
+        'image',        // <- tambah ini
     ];
 }

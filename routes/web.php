@@ -20,12 +20,11 @@ use App\Models\Destination;
 // Halaman Home
 Route::get('/', function () {
     $categories = Category::all();
+
     return view('home', compact('categories'));
 })->name('home');
 
 // Halaman Wisata publik (isi dari tabel destinations)
-// routes/web.php
-
 Route::get('/wisata', function () {
     $categories   = Category::all();
     $destinations = Destination::latest()->paginate(9);
