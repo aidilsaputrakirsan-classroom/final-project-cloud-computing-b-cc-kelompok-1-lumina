@@ -4,7 +4,6 @@
 
 @section('content')
 <style>
-    /* Area khusus halaman wisata */
     .wisata-page {
         padding: 24px 0 40px;
     }
@@ -31,11 +30,9 @@
         margin-bottom: 4px;
     }
 
-    /* dibikin penuh, tidak dibatasi max-width lagi */
     .wisata-subtitle {
         color: #6a7a80;
         font-size: 0.95rem;
-        /* max-width: 520px;  <-- DIHAPUS */
     }
 
     .wisata-grid {
@@ -48,8 +45,13 @@
         overflow: hidden;
         background: #f8fbfd;
         box-shadow: 0 6px 16px rgba(10, 35, 50, 0.08);
-        transition: transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease;
+        transition:
+            transform .25s ease,
+            box-shadow .25s ease,
+            background .25s ease,
+            border-color .25s ease;
         height: 100%;
+        cursor: pointer;
     }
 
     .wisata-card:hover {
@@ -78,14 +80,26 @@
     .wisata-name {
         font-weight: 700;
         font-size: 1.02rem;
-        color: #233540;
         margin-bottom: 6px;
+        color: #233540;
     }
 
     .wisata-desc {
         font-size: 0.9rem;
         color: #5f6c71;
-        min-height: 40px;
+        max-height: 60px;
+        overflow: hidden;
+        transition: max-height .25s ease;
+    }
+
+    .wisata-card.expanded .wisata-desc {
+        max-height: 1000px;
+    }
+
+    .wisata-hint {
+        font-size: 0.8rem;
+        color: #8a99a1;
+        margin-top: 4px;
     }
 
     .wisata-link {
@@ -109,7 +123,6 @@
         line-height: 1;
     }
 
-    /* Kartu kosong ketika tidak ada gambar */
     .wisata-card-placeholder {
         background: #e3edf5;
         height: 190px;
@@ -121,7 +134,6 @@
         font-weight: 600;
     }
 
-    /* Pagination */
     .wisata-pagination .pagination {
         margin-bottom: 0;
     }
@@ -152,7 +164,7 @@
 <div class="wisata-page">
     <div class="container">
         <div class="wisata-section">
-            {{-- Header section: tanpa total destinasi, teks lebar penuh --}}
+            {{-- Header --}}
             <div>
                 <div class="wisata-label">Destinasi</div>
                 <h1 class="wisata-title">Wisata Balikpapan</h1>
@@ -190,12 +202,16 @@
                                         {{ $d->name }}
                                     </div>
 
+                                    {{-- Deskripsi penuh, hanya dibatasi tinggi --}}
                                     <p class="wisata-desc mb-0">
-                                        {{ \Illuminate\Support\Str::limit($d->description, 110) }}
+                                        {{ $d->description }}
                                     </p>
 
                                     @if($d->location)
-                                        <a href="{{ $d->location }}" target="_blank" class="wisata-link">
+                                        <a href="{{ $d->location }}"
+                                           target="_blank"
+                                           class="wisata-link"
+                                           onclick="event.stopPropagation()">
                                             Lihat di Google Maps
                                             <span class="wisata-link-icon">↗</span>
                                         </a>
@@ -220,4 +236,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.wisata-card').forEach(function (card) {
+            card.addEventListener('click', function () {
+                card.classList.toggle('expanded');
+            });
+        });
+    });
+</script>
 @endsection
