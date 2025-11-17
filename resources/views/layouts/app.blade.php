@@ -43,6 +43,7 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+                    
 
     <!-- Search -->
     <li class="nav-item me-2">
