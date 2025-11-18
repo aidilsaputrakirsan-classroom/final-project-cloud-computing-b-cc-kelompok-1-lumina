@@ -13,29 +13,20 @@ class CategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth'); // Bisa tambahkan pengecekan admin jika perlu
+        $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View
     {
         $categories = Category::latest()->paginate(10);
         return view('admin.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
         return view('admin.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
@@ -48,7 +39,6 @@ class CategoryController extends Controller
         ]);
 
         $slug = Str::slug($validated['name']);
-        // Pastikan slug unik
         $original = $slug;
         $i = 2;
         while (Category::where('slug', $slug)->exists()) {
@@ -62,22 +52,17 @@ class CategoryController extends Controller
             'is_active'   => (bool)($validated['is_active'] ?? true),
         ]);
 
+        // Selalu redirect ke dashboard admin!
         return redirect()
-            ->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil ditambahkan.');
+            ->route('admin.dashboard')
+            ->with('success', 'Kategori berhasil ditambahkan!');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Category $category): View
     {
         return view('admin.categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Category $category): RedirectResponse
     {
         $validated = $request->validate([
@@ -103,20 +88,18 @@ class CategoryController extends Controller
             'is_active'   => (bool)($validated['is_active'] ?? true),
         ]);
 
+        // Selalu redirect ke dashboard admin!
         return redirect()
-            ->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil diperbarui.');
+            ->route('admin.dashboard')
+            ->with('success', 'Kategori berhasil diperbarui!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Category $category): RedirectResponse
     {
         $category->delete();
-
+        // Selalu redirect ke dashboard admin!
         return redirect()
-            ->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil dihapus.');
+            ->route('admin.dashboard')
+            ->with('success', 'Kategori berhasil dihapus!');
     }
 }

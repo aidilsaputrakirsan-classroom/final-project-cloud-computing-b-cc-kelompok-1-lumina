@@ -103,36 +103,33 @@
 <section class="container pb-5">
     <h3 class="fw-bold text-center mb-4">Berita & Konten Terbaru</h3>
     <div class="row row-cols-1 row-cols-md-3 g-4">
+        @forelse($histories as $history)
         <div class="col">
-            <div class="card shadow-sm border-0 h-100 rounded-4 overflow-hidden">
-                <img src="https://jejakpiknik.com/wp-content/uploads/2018/06/Pemandangan-Sekitar-Pantai-Batu.jpg" class="card-img-top" alt="Berita 1" style="object-fit:cover; height:185px;">
-                <div class="card-body">
-                    <h6 class="fw-bold mb-2">Balikpapan Dulu & Kini</h6>
-                    <p class="text-muted small mb-3">Kilas balik perkembangan Balikpapan dari kampung pesisir menjadi metropolitan energi nasional.</p>
-                    <a href="#" class="btn btn-sm btn-outline-warning px-3 rounded-pill">Baca selengkapnya</a>
+            <div class="card shadow-sm border-0 h-100 rounded-4 overflow-hidden text-center" style="background: #fff;">
+                @if($history->image)
+                    <img src="{{ asset('storage/'.$history->image) }}" class="card-img-top" alt="{{ $history->title }}" style="object-fit:cover; height:185px;">
+                @else
+                    <div style="height:185px;background:#f6f6f6;display:flex;align-items:center;justify-content:center;color:#888;">Gambar Sejarah</div>
+                @endif
+                <div class="card-body d-flex flex-column align-items-center">
+                    <div style="font-size:0.97rem;color:#888;" class="mb-1">
+                        {{ $history->event_date ? $history->event_date->format('d F Y') : '-' }}
+                    </div>
+                    <h5 class="fw-bold mb-2" style="font-size:1.13rem;">{{ $history->title }}</h5>
+                    <div class="text-muted small mb-2" style="min-height:54px;">
+                        {{ \Illuminate\Support\Str::limit(strip_tags($history->content), 75) }}
+                    </div>
+                    <a href="{{ route('sejarah.show', ['history'=>$history->slug]) }}"
+                       class="history-link"
+                       style="margin-top:8px; padding:7px 24px; font-size:.97rem; font-weight:600; border-radius:99px; color:#176C8C; border: 1.5px solid #bddae6; background:#f6fbfd; transition:.15s; text-decoration:none;">
+                        Baca selengkapnya
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card shadow-sm border-0 h-100 rounded-4 overflow-hidden">
-                <img src="https://pontianakinfo.disway.id/upload/aea20f32051580a979f413f40529a487.jpg" class="card-img-top" alt="Berita 2" style="object-fit:cover; height:185px;">
-                <div class="card-body">
-                    <h6 class="fw-bold mb-2">Jejak Jepang di Balikpapan</h6>
-                    <p class="text-muted small mb-3">Bagaimana pendudukan Jepang dan sekutu membentuk karakter sosial serta infrastruktur kota hingga sekarang.</p>
-                    <a href="#" class="btn btn-sm btn-outline-warning px-3 rounded-pill">Baca selengkapnya</a>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card shadow-sm border-0 h-100 rounded-4 overflow-hidden">
-                <img src="https://jurnalborneo.com/wp-content/uploads/2024/02/bref-.jpg" class="card-img-top" alt="Berita 3" style="object-fit:cover; height:185px;">
-                <div class="card-body">
-                    <h6 class="fw-bold mb-2">Harmoni Etnis & Budaya</h6>
-                    <p class="text-muted small mb-3">Panas, multietnis, dan toleran. Balikpapan sebagai kota dengan harmoni budaya tinggi sejak masa kolonial.</p>
-                    <a href="#" class="btn btn-sm btn-outline-warning px-3 rounded-pill">Baca selengkapnya</a>
-                </div>
-            </div>
-        </div>
+        @empty
+        <div class="col-12 text-center text-muted py-4">Belum ada data sejarah.</div>
+        @endforelse
     </div>
 </section>
 @endsection
