@@ -19,21 +19,18 @@ class HistoryController extends Controller
         $this->middleware('auth');
     }
 
-    // READ: List data sejarah (Admin)
     public function index(): View
     {
         $histories = History::with('category')->latest()->paginate(10);
         return view('admin.histories.index', compact('histories'));
     }
 
-    // CREATE: Form tambah
     public function create(): View
     {
-        $categories = Category::all(); // pastikan categories tersedia
+        $categories = Category::all();
         return view('admin.histories.create', compact('categories'));
     }
 
-    // CREATE: Simpan data baru
     public function store(Request $request): RedirectResponse
     {
         $data = $request->validate([
@@ -58,17 +55,16 @@ class HistoryController extends Controller
         History::create($data);
 
         $message = $data['is_published'] ? 'Sejarah berhasil dipublikasikan!' : 'Sejarah berhasil ditambahkan.';
-        return redirect()->route($data['is_published'] ? 'sejarah.index' : 'admin.histories.index')->with('success', $message);
+        // Selalu redirect ke dashboard admin!
+        return redirect()->route('admin.dashboard')->with('success', $message);
     }
 
-    // UPDATE: Form edit
     public function edit(History $history): View
     {
-        $categories = Category::all(); // kirim kategori ke view
+        $categories = Category::all();
         return view('admin.histories.edit', compact('history', 'categories'));
     }
 
-    // UPDATE: Simpan perubahan
     public function update(Request $request, History $history): RedirectResponse
     {
         $data = $request->validate([
@@ -81,7 +77,6 @@ class HistoryController extends Controller
             'slug'         => 'nullable|string|max:180',
         ]);
 
-        // Handle slug
         if (!empty($data['slug'])) {
             $data['slug'] = $this->ensureUniqueSlug($data['slug'], $history->id);
         } elseif ($history->title !== $data['title']) {
@@ -104,23 +99,21 @@ class HistoryController extends Controller
         $history->update($data);
 
         $message = $data['is_published'] ? 'Sejarah berhasil dipublikasikan!' : 'Sejarah berhasil diperbarui.';
-        $route = $data['is_published'] ? 'sejarah.index' : 'admin.histories.index';
-        return redirect()->route($route)->with('success', $message);
+        // Selalu redirect ke dashboard admin!
+        return redirect()->route('admin.dashboard')->with('success', $message);
     }
 
-    // DELETE
     public function destroy(History $history): RedirectResponse
     {
         if ($history->image) {
             Storage::disk('public')->delete($history->image);
         }
         $history->delete();
-        return redirect()->route('admin.histories.index')->with('success', 'Sejarah berhasil dihapus.');
+        // Selalu redirect ke dashboard admin!
+        return redirect()->route('admin.dashboard')->with('success', 'Sejarah berhasil dihapus!');
     }
 
-    /* =========================================================================
-    | Helpers
-    ========================================================================= */
+    // --- Helpers ---
 
     private function makeUniqueSlug(string $title, ?int $ignoreId = null): string
     {

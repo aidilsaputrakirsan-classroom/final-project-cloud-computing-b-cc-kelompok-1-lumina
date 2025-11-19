@@ -14,9 +14,15 @@
             <ul class="navbar-nav ms-auto align-items-center">
 
                 @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">Home</a>
-                    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('home') }}">Home</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('wisata.index') }}">Wisata</a>
+    </li>
+
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('sejarah.index') }}">Sejarah</a>
                     </li>
@@ -44,6 +50,10 @@
                         </a>
                     </li>
                 @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('wisata.index') }}">Wisata</a>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('profile') }}">
                             <i class="bi bi-person-circle me-1"></i> Profile

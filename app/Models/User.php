@@ -49,4 +49,36 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Scope untuk filter hanya admin
+     */
+    public function scopeAdmins($query)
+    {
+        return $query->where('role', 'admin');
+    }
+
+    /**
+     * Scope untuk filter hanya user biasa
+     */
+    public function scopeRegularUsers($query)
+    {
+        return $query->where('role', '!=', 'admin');
+    }
+
+    /**
+     * Check apakah user adalah admin
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    /**
+     * Check apakah user adalah regular user
+     */
+    public function isUser(): bool
+    {
+        return $this->role !== 'admin';
+    }
 }
