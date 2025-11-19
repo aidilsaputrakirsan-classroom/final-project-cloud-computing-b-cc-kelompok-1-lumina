@@ -84,16 +84,17 @@
         <div class="col-lg-9">
             <div class="rounded-4 bg-light p-4 shadow-sm mb-4">
                 <h4 class="fw-bold mb-2 text-center">Sejarah Balikpapan</h4>
-                <p class="mb-0 text-secondary text-center" style="font-size:1.08rem;">
+                <!-- DIV is justified here! -->
+                <div class="mb-0 text-secondary" style="font-size:1.08rem; text-align:justify;">
                     Balikpapan, yang dikenal sebagai "Kota Minyak", memiliki sejarah yang kaya dengan penemuan sumur minyak pertama pada 10 Februari 1897. Penamaan sumur ini berasal dari nama anak JH Menten dan Firma Samuel & Co. yang menang hak konsesi pengeboran. Keberadaan minyak di Balikpapan telah membawa banyak pendatang, terutama orang Cina dan pekerja pengeboran dari Jawa dan India, yang menjadi asal usul sebagian besar warga Balikpapan. Seiring waktu, Balikpapan berkembang menjadi kota industri yang mengolah minyak mentah dari sekitarnya dan juga minyak impor dari negara lain.
-                </p>
+                </div>
             </div>
         </div>
     </div>
     <div class="card border-0 shadow-sm mt-4 bg-light">
         <div class="card-body">
             <div class="fw-bold pb-2" style="font-size:1.10rem;">Tau gak sih, kenapa kota ini dinamakan kota Balikpapan?</div>
-            <div style="font-size: 0.98rem; color: #666;">
+            <div style="font-size: 0.98rem; color: #666; text-align:justify;">
                 Dari kisah Putri Petung, anak dari Raja Pasir untuk melindungi sang putri dari serangan musuh, raja terpaksa membuangnya ke laut saat masih bayi. Putri Petung diletak di atas selembar papan dan dilepaskan mengikuti arus laut. Namun, karena ombak yang kuat, papan itu terbalik, meninggalkan Putri Petung terikat di baliknya. Beberapa waktu kemudian, seorang nelayan menemukan anak putri dalam keadaan masih hidup dan terikat di balik papan tersebut. Sejak peristiwa itu, tempat pendaratannya dinamakan Balikpapan, yang berarti "papan yang terbalik".
             </div>
         </div>
