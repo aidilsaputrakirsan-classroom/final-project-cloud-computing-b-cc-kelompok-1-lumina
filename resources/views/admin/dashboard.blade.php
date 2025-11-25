@@ -77,7 +77,7 @@
                     <a class="nav-link" href="{{ route('wisata.index') }}">Wisata</a>
                 </li>
 
-                {{-- CATEGORIES DROPDOWN (Dropdown persis user) --}}
+                {{-- CATEGORIES DROPDOWN --}}
                 <li class="nav-item dropdown me-2">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         Categories
@@ -264,6 +264,7 @@
                 </div>
             </div>
 
+            {{-- USER MANAGEMENT SECTION --}}
             <div class="mt-5 mb-5">
                 <h2 class="mb-4" style="font-weight: 700; color: #143542;">User Management</h2>
                 <div class="row g-4 mb-4">
@@ -387,6 +388,62 @@
                     </div>
                 </div>
             </div>
+
+            {{-- ACTIVITY LOG SECTION (BARU) --}}
+            <div class="mt-5 mb-5">
+                <h2 class="mb-4" style="font-weight: 700; color: #143542;">Activity Logs</h2>
+                <div class="table-wrap">
+                    <div class="p-3 border-bottom bg-white">
+                        <strong>Recent Login & Logout</strong>
+                    </div>
+                    <div class="table-responsive bg-white">
+                        <table class="table mb-0 align-middle">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="py-3 px-4">Waktu</th>
+                                    <th class="py-3 px-4">User</th>
+                                    <th class="py-3 px-4">Aktivitas</th>
+                                    <th class="py-3 px-4">Detail (IP)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($activityLogs ?? [] as $log)
+                                <tr>
+                                    <td class="px-4 py-3 text-muted">
+                                        {{ $log->created_at->format('d M Y, H:i') }}
+                                        <small class="d-block text-xs" style="font-size: 0.75rem;">({{ $log->created_at->diffForHumans() }})</small>
+                                    </td>
+
+                                    <td class="px-4 py-3 font-weight-bold">
+                                        {{ $log->user->name ?? 'User Terhapus' }}
+                                    </td>
+
+                                    <td class="px-4 py-3">
+                                        @if($log->action == 'Login')
+                                            <span class="badge bg-success text-white px-3 py-2 rounded-pill">Login</span>
+                                        @elseif($log->action == 'Logout')
+                                            <span class="badge bg-danger text-white px-3 py-2 rounded-pill">Logout</span>
+                                        @else
+                                            <span class="badge bg-primary text-white px-3 py-2 rounded-pill">{{ $log->action }}</span>
+                                        @endif
+                                        <div class="small text-muted mt-1">{{ $log->description }}</div>
+                                    </td>
+
+                                    <td class="px-4 py-3 text-secondary small">
+                                        {{ $log->details ?? '-' }}
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="text-center py-4 text-muted">Belum ada aktivitas terekam.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
         </section>
     </main>
 
@@ -403,7 +460,7 @@
                 const email = row.getAttribute('data-email');
                 if (name.includes(searchInput) || email.includes(searchInput)) {
                     row.style.display = '';
-                } else {
+                } else {    
                     row.style.display = 'none';
                 }
             });

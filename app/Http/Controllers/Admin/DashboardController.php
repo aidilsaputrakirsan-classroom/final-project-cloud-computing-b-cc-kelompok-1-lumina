@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\History;
 use App\Models\Destination;
 use App\Models\User;
+use App\Models\ActivityLog; // [BARU] Import Model ActivityLog
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -25,12 +26,19 @@ class DashboardController extends Controller
         // Data sejarah terbaru untuk tabel bawah
         $sejarahTerbaru = History::latest()->take(5)->get();
 
-        // TAMBAHAN: Data users - SELALU tampilkan semua
+        // Data users - SELALU tampilkan semua
         $users = User::orderBy('created_at', 'desc')->get();
         
         $totalUsers = User::count();
         $totalAdmin = User::where('role', 'admin')->count();
         $totalRegularUsers = $totalUsers - $totalAdmin;
+
+        // [BARU] Ambil Data Activity Logs (Login/Logout)
+        // Kita ambil 10 data terakhir, beserta data usernya
+        $activityLogs = ActivityLog::with('user')
+                        ->latest() // Urutkan dari yang paling baru
+                        ->take(10) // Batasi 10 baris saja biar tidak kepanjangan
+                        ->get();
 
         return view('admin.dashboard', compact(
             'totalSejarah',
@@ -41,7 +49,8 @@ class DashboardController extends Controller
             'users',
             'totalUsers',
             'totalAdmin',
-            'totalRegularUsers'
+            'totalRegularUsers',
+            'activityLogs' // [BARU] Kirim variabel ini ke View
         ));
     }
 
