@@ -410,7 +410,7 @@
                                 @forelse($activityLogs ?? [] as $log)
                                 <tr>
                                     <td class="px-4 py-3 text-muted">
-                                        {{ $log->created_at->format('d M Y, H:i') }}
+                                        {{ $log->created_at->setTimezone('Asia/Makassar')->format('d M Y, H:i') }}
                                         <small class="d-block text-xs" style="font-size: 0.75rem;">({{ $log->created_at->diffForHumans() }})</small>
                                     </td>
 
