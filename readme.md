@@ -1,6 +1,8 @@
-## Jelajah Balikpapan
+# Jelajah Balikpapan
 
-Sebuah platform web berbasis Laravel yang menampilkan informasi sejarah, wisata, budaya, serta pesona Kota Balikpapan. Data dikelola menggunakan **Supabase PostgreSQL** dan gambar disimpan melalui **Supabase Storage**.
+Sebuah platform web berbasis Laravel yang dirancang untuk menampilkan informasi mengenai sejarah, wisata, budaya, tokoh, dan kuliner yang ada di Kota Balikpapan.
+Seluruh data konten tersimpan di Supabase PostgreSQL, sedangkan gambar dikelola menggunakan Supabase Storage.
+Website ini juga mendukung role Admin dan User, lengkap dengan fitur manajemen konten untuk Admin.
 
 ---
 
@@ -24,13 +26,15 @@ Sebuah platform web berbasis Laravel yang menampilkan informasi sejarah, wisata,
 
 ---
 
-# ## **Fitur Utama**
+# ## Fitur Utama
 
 ### 🌆 Halaman Utama
 
-* Hero section “Menghidupkan Sejarah, Menggali Pesona Balikpapan”
-* Slider landmark kota
-* Informasi Visi & Misi, Moto Kota, Maskot Balikpapan
+Menampilkan gambaran umum Kota Balikpapan melalui:
+* Hero section bertema “Menghidupkan Sejarah, Menggali Pesona Balikpapan”
+* Slider gambar landmark kota
+* Sekilas info tentang kota (Visi, Misi, Moto, Maskot)
+* Navigasi cepat menuju halaman sejarah & wisata
 
 ### 🏞 Wisata
 
@@ -39,9 +43,9 @@ Sebuah platform web berbasis Laravel yang menampilkan informasi sejarah, wisata,
 
 ### 📜 Sejarah
 
-* Daftar artikel sejarah
-* Detail sejarah (layaknya blog)
-* Kategori sejarah
+* List artikel sejarah dari berbagai kategori
+* Tampilan blog untuk setiap artikel
+* Mendukung kategori seperti Budaya, Peristiwa, Tokoh, Kuliner, dll
 
 ### 🔍 Pencarian
 
@@ -51,49 +55,51 @@ Sebuah platform web berbasis Laravel yang menampilkan informasi sejarah, wisata,
 ### 🏷 Kategori
 
 * Filter berdasarkan kategori
-* Data kategori berasal dari Supabase
+* Data kategori berasal dari Supabase (sejarah)
 
 ### 👤 User Profile
 
-* Menampilkan data pengguna (Supabase Auth)
-* Logout & session management
+* Halaman profil User/Admin
+* Informasi dasar akun yang login via Supabase Auth
+* Fitur Logout dan manajemen session
 
 ---
 
-# ## **Tech Stack**
+# ## Tech Stack
 
-### **Frontend & Backend**
+### Frontend & Backend
 
 * Laravel 10
 * Blade Template Engine
-* Tailwind / Bootstrap
+* CSS framework: Tailwind CSS
 
-### **Database & Storage**
+### Database & Storage
 
 * Supabase PostgreSQL
-* Supabase Storage (gambar wisata & sejarah)
 
-### **Auth**
+### Authentication
 
 * Supabase Auth (email/password)
 
-### **Deployment**
+### Deployment
 
-* Laravel + Nginx (Cloud VM / Recraft Hosting)
+* Laravel (Backend)
+* Hostinger (Web Hosting – Apache)
+* Supabase (Database PostgreSQL)
 
 ---
 
-# ## **Persyaratan Sistem**
+# ## Persyaratan Sistem
 
 * PHP >= 8.1
 * Composer
 * Node.js & NPM
 * Laravel CLI
 * Akun Supabase
+* File environment (.env) diisi dengan konfigurasi Supabase
 * Extension PHP:
-
   * OpenSSL
-  * PDO
+  * PDO & pdo_pgsql
   * Mbstring
   * Tokenizer
   * Ctype
@@ -101,7 +107,7 @@ Sebuah platform web berbasis Laravel yang menampilkan informasi sejarah, wisata,
 
 ---
 
-# ## **Instalasi**
+# ## Instalasi
 
 ### 1. Clone Repository
 
@@ -132,31 +138,31 @@ php artisan key:generate
 
 ---
 
-# ## **Konfigurasi**
+# ## Konfigurasi
 
-## **1. Konfigurasi Supabase**
+## 1. Konfigurasi Supabase
 
-Tambahkan pada `.env`:
-
-```env
-SUPABASE_URL="https://your-project.supabase.co"
-SUPABASE_KEY="public-anon-key"
-SUPABASE_BUCKET="balikpapan-storage"
-```
-
-## **2. Koneksi API Supabase**
-
-Laravel menggunakan `Http::withHeaders()` untuk fetch data:
+Koneksi Supabase PostgreSQL sudah diatur melalui variabel berikut:
 
 ```php
+DB_CONNECTION=pgsql
+DB_URL=postgresql://postgres.zvtrmrhuzwejscvcksho:Baeeloo11@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres
+```
+Dengan format tersebut, Laravel langsung terhubung ke database Supabase tanpa perlu konfigurasi manual seperti host, username, atau password.
+
+## 2. Koneksi API Supabase
+
+Akses data dilakukan melalui endpoint REST Supabase menggunakan `Http::withHeaders()`, dengan API key dan URL yang diambil dari file .env:
+```php
 Http::withHeaders([
-    'apikey' => env('SUPABASE_KEY')
+    'apikey' => env('SUPABASE_KEY'),
+    'Authorization' => 'Bearer ' . env('SUPABASE_KEY')
 ])->get(env('SUPABASE_URL') . '/rest/v1/wisata?select=*');
 ```
 
 ---
 
-# ## **Role & Permissions**
+# ## Role & Permissions
 
 Jika proyekmu memiliki role dari Supabase Auth:
 
@@ -168,9 +174,9 @@ Jika proyekmu memiliki role dari Supabase Auth:
 
 ---
 
-# ## **Fitur Berdasarkan Role**
+# ## Fitur Berdasarkan Role
 
-### ### 👑 Admin
+### 👑 Admin
 
 * Tambah/Edit/Hapus konten wisata
 * Tambah/Edit/Hapus artikel sejarah
@@ -179,109 +185,170 @@ Jika proyekmu memiliki role dari Supabase Auth:
 * Export PDF (opsional)
 * Import data dari CSV (opsional)
 
-### ### 👤 User
+### 👤 User
 
 * Lihat konten
 * Gunakan fitur pencarian
 * Edit profile
 
-### ### 👥 Guest / Tanpa Login
+### 👥 Guest / Tanpa Login
 
 * Mengakses halaman publik
 * Melihat daftar wisata & sejarah
 
 ---
 
-# ## **Generate PDF**
+# ## Generate PDF
 
-Jika ada fitur export PDF menggunakan `laravel-dompdf` atau `barryvdh/laravel-dompdf`:
+Project ini tidak menggunakan fitur export PDF, sehingga package seperti laravel-dompdf atau barryvdh/laravel-dompdf tidak digunakan.
 
-```bash
-php artisan dompdf:publish
+---
+
+# ## Import Data
+
+Project ini belum menggunakan fitur Import Data (CSV/Excel) dan tidak menggunakan package seperti maatwebsite/excel.
+
+
+Seluruh data pada aplikasi dimasukkan secara manual melalui form input dan kemudian disimpan ke Supabase menggunakan koneksi database PostgreSQL yang sudah dikonfigurasi melalui:
 ```
+DB_CONNECTION=pgsql
+DB_URL=...
+```
+---
 
-Penggunaan:
+# ## Screenshot
 
-```php
-$pdf = PDF::loadView('pdf.wisata', compact('data'));
-return $pdf->download('wisata.pdf');
+### 1. Halaman Login
+![Halaman Login](resources/readme-assets/login.png)
+*Halaman login dengan form email dan password untuk masuk sebagai user atau admin*
+
+### 2. Dashboard Admin
+![Dashboard Admin](resources/readme-assets/Dashboard-Admin.png)
+*Dashboard admin untuk mengakses dashboard yang hanya bisa diakses admin untuk menambahkan konten dari website*
+
+### 3. Home Page
+![Home Page](resources/readme-assets/Home-1.png)
+![Home Page](resources/readme-assets/Home-2.png)
+*Home page merupakan halaman utama website yang berisi konten-konten terkait sejarah kota Balikpapan*
+
+### 4. Categories Budaya
+![Categories Budaya](resources/readme-assets/Categories-Budaya.png)
+*Category Budaya merupakan halaman dari fitur category dengan opsi budaya, berisikan konten yang masuk dalam category budaya*
+
+### 5. Categories Kuliner
+![Categories Kuliner](resources/readme-assets/Categories-Kuliner.png)
+*Category Kuliner merupakan halaman dari fitur category dengan opsi kuliner, berisikan konten yang masuk dalam category kuliner*
+
+### 6. Categories Peristiwa
+![Categories Peristiwa](resources/readme-assets/Categories-Peristiwa.png)
+*Category Peristiwa merupakan halaman dari fitur category dengan opsi peristiwa, berisikan konten yang masuk dalam category peristiwa*
+
+### 7. Categories Tokoh
+![Categories Tokoh](resources/readme-assets/Categories-Tokoh.png)
+*Category Tokoh merupakan halaman dari fitur category dengan opsi tokoh, berisikan konten yang masuk dalam category tokoh*
+
+### 8. Role Profile
+![Role Profile](resources/readme-assets/Role-Profile.png)
+*Profile merupakan halaman dari fitur profile, berisikan informasi terkait user/admin*
+
+### 9. Sejarah
+![Sejarah](resources/readme-assets/Sejarah.png)
+*Sejarah merupakan halaman dari fitur sejarah, berisikan informasi terkait sejarah kota Balikpapan*
+
+### 10. Wisata
+![Wisata](resources/readme-assets/Wisata.png)
+*Wisata merupakan halaman dari fitur wisata, berisikan informasi terkait wisata yang ada di kota Balikpapan*
+
+### 11. Search
+![Seaarch](resources/readme-assets/Search.png)
+*Search merupakan halaman dari fitur search, berisikan informasi terkait seluruh konten pada website dan bisa dicari berdasarkan judul atau kata kunci*
 ```
 
 ---
 
-# ## **Import Data**
-
-Jika kamu import data via CSV atau Excel:
-
-1. Upload file ke halaman admin
-2. Data diproses dan disimpan ke Supabase melalui API
-3. Validasi otomatis
-
-Contoh controller:
-
-```php
-$data = Excel::toArray([], $file);
 ```
+### Struktur Database
+
+### Tabel Utama
+- **users** : Menyimpan data pengguna sistem (admin/user)
+- **categories** : Menyimpan kategori untuk sejarah
+- **histories** : Artikel sejarah dari berbagai kategori
+- **destinations** : Menyimpan data destinasi wisata
+- **activity_logs** : Menyimpan riwayat aktivitas user/admin dalam sistem
+
+### Tabel users
+
+| Field              | Type              | Keterangan                                      |
+|--------------------|-------------------|-------------------------------------------------|
+| id                 | INT / BIGINT      | Primary Key (auto increment)                    |
+| name               | VARCHAR           | Nama pengguna                                   |
+| email              | VARCHAR           | Email pengguna (unik)                           |
+| email_verified_at  | TIMESTAMP         | Waktu konfirmasi email (nullable)               |
+| password           | VARCHAR           | Password (hash)                                 |
+| role               | VARCHAR / ENUM    | Peran user (misal: admin, user)                 |
+| status             | VARCHAR / ENUM    | Status akun (aktif / tidak aktif)               |
+| gender             | TEXT / VARCHAR    | Jenis kelamin                                   |
+| age                | INT               | Usia pengguna                                   |
+| street_name        | TEXT / VARCHAR    | Nama jalan/alamat                               |
+| created_at         | TIMESTAMP         | Waktu pembuatan data                             |
+| updated_at         | TIMESTAMP         | Waktu update data                               |
+
+### Tabel categories
+
+| Field        | Type          | Keterangan                         |
+|--------------|---------------|------------------------------------|
+| id           | INT / BIGINT  | Primary Key                        |
+| name         | VARCHAR       | Nama kategori                      |
+| slug         | VARCHAR       | Slug untuk URL / URL-friendly      |
+| description  | TEXT          | Deskripsi kategori (nullable)      |
+| created_at   | TIMESTAMP     | Waktu pembuatan kategori           |
+| updated_at   | TIMESTAMP     | Waktu update kategori              |
+
+### Tabel histories
+
+| Field        | Type        | Keterangan                                 |
+|--------------|-------------|--------------------------------------------|
+| id           | int8        | Primary Key                                |
+| user_id      | int8        | Foreign Key → users.id                     |
+| destination_id | int8      | Foreign Key → destinations.id              |
+| visited_at   | timestamptz | Waktu pengguna mengunjungi destinasi       |
+
+### Tabel destinations
+
+| Field         | Type        | Keterangan                                 |
+|---------------|-------------|--------------------------------------------|
+| id            | int8        | Primary Key                                |
+| category_id   | int8        | Foreign Key → categories.id                |
+| title         | text        | Judul destinasi                            |
+| slug          | text        | Slug destinasi (URL-friendly)              |
+| description   | text        | Deskripsi destinasi                        |
+| location      | text        | Lokasi destinasi                           |
+| image         | text        | URL/path gambar utama                      |
+| created_at    | timestamptz | Waktu dibuat                               |
+| updated_at    | timestamptz | Waktu diperbarui                           |
+
+### Tabel activity_logs
+
+| Field       | Type        | Keterangan                                 |
+|-------------|-------------|--------------------------------------------|
+| id          | int8        | Primary Key                                |
+| created_at  | timestamptz | Waktu terjadi aktivitas                    |
+| user_id     | int8        | Foreign Key → users.id                     |
+| action      | text        | Jenis aksi (Login / Logout / lainnya)      |
+| description | text        | Deskripsi aktivitas                        |
+| details     | text        | Detail tambahan (misal: IP user)           |
 
 ---
 
-# ## **Screenshot**
+# ## Penggunaan
 
-Kamu tinggal masukkan gambar:
-
-```
-![Halaman Login](public/images/screenshots/01-login.png)
-*Halaman login dengan form email dan password*
-![Kota Balikpapan](public/img/Kota-Balikpapan.jpg)
-
-![Home](finalproject/gambar/motifbatikbalikpapan.jpg)
-![Detail Wisata](public/img/KOTAMINYAK.jpg)
-![Kategori](screenshots/kategori.png)
-
-```
-
----
-
-# ## **Struktur Database**
-
-Tabel utama pada Supabase:
-
-### **1. wisata**
-
-| Field     | Tipe    | Keterangan                |
-| --------- | ------- | ------------------------- |
-| id        | int     | PK                        |
-| nama      | varchar | nama wisata               |
-| deskripsi | text    | detail wisata             |
-| lokasi    | varchar | alamat                    |
-| foto_url  | text    | URL dari Supabase Storage |
-
-### **2. sejarah**
-
-| Field       | Tipe    |
-| ----------- | ------- |
-| id          | int     |
-| judul       | varchar |
-| isi         | text    |
-| kategori_id | int     |
-| gambar_url  | text    |
-
-### **3. kategori**
-
-| id | int |
-| nama | varchar |
-
----
-
-# ## **Penggunaan**
-
-### Jalankan server
+### Jalankan server:
 
 ```bash
 php artisan serve
 ```
 
-Akses di browser:
+### Akses di browser:
 
 ```
 https://lumina.recraft.id/
@@ -289,7 +356,7 @@ https://lumina.recraft.id/
 
 ---
 
-# ## **Deployment**
+# ## Deployment
 
 ### 1. Siapkan Repository di GitHub
 
@@ -327,9 +394,9 @@ npm install
 npm run build
 
 ### 5. Optimasi Laravel
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+* php artisan config:cache
+* php artisan route:cache
+* php artisan view:cache
 
 ### 6. Set Public Folder yang Benar
 
@@ -341,7 +408,6 @@ hPanel → Advanced → Configuration → PHP Configuration
 
 Ubah document root ke folder Laravel public/.
 
-
 ### 7. Setelah Semua Berhasil
 
 Akses:
@@ -350,25 +416,37 @@ https://lumina.recraft.id/
 
 
 Website Laravel + Supabase siap digunakan.
-```
+
 
 ### ✔ Pastikan folder:
 
-`/storage` → writable.
+- `/storage` → writable
+- `/bootstrap/cache` → writable
 
 ---
 
-# ## **Kontribusi**
+# ## Kontribusi
 
-1. Fork repository
-2. Buat branch baru
-3. Commit perubahan
-4. Pull request
+Kontribusi sangat terbuka untuk pengembangan proyek ini.
+
+1. Lakukan **Fork** pada repository
+2. Buat branch baru:
+```bash
+   git checkout -b fitur-baru
+```
+3. Commit perubahan:
+```
+git commit -m "Menambahkan fitur baru"
+```
+4. Kirim Pull Request untuk ditinjau
 
 ---
 
-# ## **Lisensi**
+# ## Lisensi
 
-Lisensi proyek ini mengikuti lisensi default yang ada di repository.
+Proyek ini tidak memiliki lisensi terbuka. Semua hak cipta dilindungi (All Rights Reserved). Penggunaan, penyalinan, atau distribusi kode hanya diperbolehkan dengan izin dari pemilik proyek.
+
 
 ---
+
+*Last updated: December 2025*
