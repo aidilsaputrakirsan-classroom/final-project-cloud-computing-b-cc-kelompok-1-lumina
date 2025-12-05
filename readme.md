@@ -1,7 +1,7 @@
 # Jelajah Balikpapan
 
 Sebuah platform web berbasis Laravel yang dirancang untuk menampilkan informasi mengenai sejarah, wisata, budaya, tokoh, dan kuliner yang ada di Kota Balikpapan.
-Seluruh data konten tersimpan di Supabase PostgreSQL, sedangkan gambar dikelola menggunakan Supabase Storage.
+Seluruh data konten tersimpan di Supabase PostgreSQL, sedangkan gambar diambil dari folder public.
 Website ini juga mendukung role Admin dan User, lengkap dengan fitur manajemen konten untuk Admin.
 
 ---
@@ -164,7 +164,7 @@ Http::withHeaders([
 
 # ## Role & Permissions
 
-Jika proyekmu memiliki role dari Supabase Auth:
+Memiliki role dari Supabase Auth:
 
 | Role      | Akses                                |
 | --------- | ------------------------------------ |
@@ -220,48 +220,48 @@ DB_URL=...
 
 ### 1. Halaman Login
 ![Halaman Login](resources/readme-assets/login.png)
-*Halaman login dengan form email dan password untuk masuk sebagai user atau admin*
+Halaman login dengan form email dan password untuk masuk sebagai user atau admin
 
 ### 2. Dashboard Admin
 ![Dashboard Admin](resources/readme-assets/Dashboard-Admin.png)
-*Dashboard admin untuk mengakses dashboard yang hanya bisa diakses admin untuk menambahkan konten dari website*
+Dashboard admin untuk mengakses dashboard yang hanya bisa diakses admin untuk menambahkan konten dari website (wisata, sejarah, kategori)
 
 ### 3. Home Page
 ![Home Page](resources/readme-assets/Home-1.png)
 ![Home Page](resources/readme-assets/Home-2.png)
-*Home page merupakan halaman utama website yang berisi konten-konten terkait sejarah kota Balikpapan*
+Home page merupakan halaman utama website yang berisi konten-konten terkait sejarah kota Balikpapan
 
 ### 4. Categories Budaya
 ![Categories Budaya](resources/readme-assets/Categories-Budaya.png)
-*Category Budaya merupakan halaman dari fitur category dengan opsi budaya, berisikan konten yang masuk dalam category budaya*
+Category Budaya merupakan halaman dari fitur category dengan opsi budaya, berisikan konten yang masuk dalam category budaya
 
 ### 5. Categories Kuliner
 ![Categories Kuliner](resources/readme-assets/Categories-Kuliner.png)
-*Category Kuliner merupakan halaman dari fitur category dengan opsi kuliner, berisikan konten yang masuk dalam category kuliner*
+Category Kuliner merupakan halaman dari fitur category dengan opsi kuliner, berisikan konten yang masuk dalam category kuliner
 
 ### 6. Categories Peristiwa
 ![Categories Peristiwa](resources/readme-assets/Categories-Peristiwa.png)
-*Category Peristiwa merupakan halaman dari fitur category dengan opsi peristiwa, berisikan konten yang masuk dalam category peristiwa*
+Category Peristiwa merupakan halaman dari fitur category dengan opsi peristiwa, berisikan konten yang masuk dalam category peristiwa
 
 ### 7. Categories Tokoh
 ![Categories Tokoh](resources/readme-assets/Categories-Tokoh.png)
-*Category Tokoh merupakan halaman dari fitur category dengan opsi tokoh, berisikan konten yang masuk dalam category tokoh*
+Category Tokoh merupakan halaman dari fitur category dengan opsi tokoh, berisikan konten yang masuk dalam category tokoh
 
 ### 8. Role Profile
 ![Role Profile](resources/readme-assets/Role-Profile.png)
-*Profile merupakan halaman dari fitur profile, berisikan informasi terkait user/admin*
+Profile merupakan halaman dari fitur profile, berisikan informasi terkait user/admin
 
 ### 9. Sejarah
 ![Sejarah](resources/readme-assets/Sejarah.png)
-*Sejarah merupakan halaman dari fitur sejarah, berisikan informasi terkait sejarah kota Balikpapan*
+Sejarah merupakan halaman dari fitur sejarah, berisikan informasi terkait sejarah kota Balikpapan
 
 ### 10. Wisata
 ![Wisata](resources/readme-assets/Wisata.png)
-*Wisata merupakan halaman dari fitur wisata, berisikan informasi terkait wisata yang ada di kota Balikpapan*
+Wisata merupakan halaman dari fitur wisata, berisikan informasi terkait wisata yang ada di kota Balikpapan
 
 ### 11. Search
 ![Seaarch](resources/readme-assets/Search.png)
-*Search merupakan halaman dari fitur search, berisikan informasi terkait seluruh konten pada website dan bisa dicari berdasarkan judul atau kata kunci*
+Search merupakan halaman dari fitur search, berisikan informasi terkait seluruh konten pada website dan bisa dicari berdasarkan judul atau kata kunci
 ```
 
 ---
@@ -384,13 +384,13 @@ Buka:
 Website → Git → Connect Repository
 
 Isi:
-Repository URL → repo GitHub kamu
-Branch → branch yang dipakai (misal: finalproject_jelajahbalikpapan)
-Pilih Deploy to: root folder (atau subfolder jika project-mu tidak di root)
+Repository URL → repo GitHub.
+Branch → branch yang dipakai (misal: development)
+Pilih Deploy to: root folder (atau subfolder jika project tidak di root)
 Setelah itu Hostinger akan otomatis:
-clone repo
-menyiapkan environment
-membaca struktur Laravel
+- clone repo
+- menyiapkan environment
+- membaca struktur Laravel
 
 ### 3. Konfigurasi File .env di Hostinger
 
@@ -429,7 +429,6 @@ https://lumina.recraft.id/
 
 
 Website Laravel + Supabase siap digunakan.
-
 
 ### ✔ Pastikan folder:
 
