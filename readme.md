@@ -275,69 +275,82 @@ DB_URL=...
 - **histories** : Artikel sejarah dari berbagai kategori
 - **destinations** : Menyimpan data destinasi wisata
 - **activity_logs** : Menyimpan riwayat aktivitas user/admin dalam sistem
+- **migrations** : Mencatat file migrasi mana saja yang sudah dijalankan oleh sistem.
 
 ### Tabel users
 
-| Field              | Type              | Keterangan                                      |
-|--------------------|-------------------|-------------------------------------------------|
-| id                 | INT / BIGINT      | Primary Key (auto increment)                    |
-| name               | VARCHAR           | Nama pengguna                                   |
-| email              | VARCHAR           | Email pengguna (unik)                           |
-| email_verified_at  | TIMESTAMP         | Waktu konfirmasi email (nullable)               |
-| password           | VARCHAR           | Password (hash)                                 |
-| role               | VARCHAR / ENUM    | Peran user (misal: admin, user)                 |
-| status             | VARCHAR / ENUM    | Status akun (aktif / tidak aktif)               |
-| gender             | TEXT / VARCHAR    | Jenis kelamin                                   |
-| age                | INT               | Usia pengguna                                   |
-| street_name        | TEXT / VARCHAR    | Nama jalan/alamat                               |
-| created_at         | TIMESTAMP         | Waktu pembuatan data                             |
-| updated_at         | TIMESTAMP         | Waktu update data                               |
+| Name                  | Data Type                     | Format      | Keterangan                                         |
+| :---                  | :---                          | :---        | :---                                               |
+| **id** | `bigint`                      | `int8`      | *Primary Key*, ID unik pengguna.                   |
+| **name** | `character varying`           | `varchar`   | Nama lengkap pengguna.                             |
+| **email** | `character varying`           | `varchar`   | Alamat email (biasanya unik).                      |
+| **email_verified_at** | `timestamp without time zone` | `timestamp` | Waktu verifikasi email.                            |
+| **password** | `character varying`           | `varchar`   | Password pengguna (tersimpan dalam bentuk *hash*). |
+| **remember_token** | `character varying`           | `varchar`   | Token acak untuk fitur "Remember Me".              |
+| **created_at** | `timestamp without time zone` | `timestamp` | Waktu saat akun pertama kali dibuat.               |
+| **updated_at** | `timestamp without time zone` | `timestamp` | Waktu saat data akun terakhir kali diperbarui.     |
+| **role** | `text`                        | `text`      | Peran pengguna (misal: `admin`, `user`).           |
+| **gender** | `text`                        | `text`      | Jenis kelamin pengguna.                            |
+| **age** | `integer`                     | `int4`      | Usia pengguna.                                     |
+| **street_name** | `text`                        | `text`      | Nama jalan atau alamat pengguna.                   |
 
 ### Tabel categories
 
-| Field        | Type          | Keterangan                         |
-|--------------|---------------|------------------------------------|
-| id           | INT / BIGINT  | Primary Key                        |
-| name         | VARCHAR       | Nama kategori                      |
-| slug         | VARCHAR       | Slug untuk URL / URL-friendly      |
-| description  | TEXT          | Deskripsi kategori (nullable)      |
-| created_at   | TIMESTAMP     | Waktu pembuatan kategori           |
-| updated_at   | TIMESTAMP     | Waktu update kategori              |
+| Name          | Data Type                     | Format      | Keterangan                                      |
+| :---          | :---                          | :---        | :---                                            |
+| **id** | `bigint`                      | `int8`      | *Primary Key*, ID unik data.                    |
+| **name** | `character varying`           | `varchar`   | Nama entitas atau item.                         |
+| **slug** | `character varying`           | `varchar`   | Versi teks ramah URL (*URL-friendly*) untuk SEO.|
+| **is_active** | `boolean`                     | `bool`      | Status aktif (`true`) atau non-aktif (`false`). |
+| **description**| `text`                        | `text`      | Penjelasan atau deskripsi lengkap item.         |
+| **created_at**| `timestamp without time zone` | `timestamp` | Waktu data pertama kali dibuat.                 |
+| **updated_at**| `timestamp without time zone` | `timestamp` | Waktu data terakhir kali diubah.                |
 
 ### Tabel histories
 
-| Field        | Type        | Keterangan                                 |
-|--------------|-------------|--------------------------------------------|
-| id           | int8        | Primary Key                                |
-| user_id      | int8        | Foreign Key → users.id                     |
-| destination_id | int8      | Foreign Key → destinations.id              |
-| visited_at   | timestamptz | Waktu pengguna mengunjungi destinasi       |
+| Name          | Data Type                     | Format      | Keterangan                                      |
+| :---          | :---                          | :---        | :---                                            |
+| **id** | `bigint`                      | `int8`      | *Primary Key*, identitas unik postingan.        |
+| **title** | `character varying`           | `varchar`   | Judul artikel atau acara.                       |
+| **image** | `character varying`           | `varchar`   | Path atau URL file gambar utama.                |
+| **content** | `text`                        | `text`      | Isi konten utama artikel/acara.                 |
+| **event_date**| `timestamp without time zone` | `timestamp` | Tanggal dan waktu acara berlangsung.            |
+| **created_at**| `timestamp without time zone` | `timestamp` | Waktu pembuatan data.                           |
+| **updated_at**| `timestamp without time zone` | `timestamp` | Waktu pembaruan data terakhir.                  |
+| **published_at**| `timestamp without time zone`| `timestamp` | Jadwal atau waktu postingan diterbitkan.        |
+| **slug** | `text`                        | `text`      | URL slug untuk akses postingan di browser.      |
+| **is_published**| `text`                      | `text`      | Status publikasi (misal: "draft", "published"). |
+| **category_id**| `bigint`                      | `int8`      | *Foreign Key*, merujuk ke tabel Categories.     |
 
 ### Tabel destinations
 
-| Field         | Type        | Keterangan                                 |
-|---------------|-------------|--------------------------------------------|
-| id            | int8        | Primary Key                                |
-| category_id   | int8        | Foreign Key → categories.id                |
-| title         | text        | Judul destinasi                            |
-| slug          | text        | Slug destinasi (URL-friendly)              |
-| description   | text        | Deskripsi destinasi                        |
-| location      | text        | Lokasi destinasi                           |
-| image         | text        | URL/path gambar utama                      |
-| created_at    | timestamptz | Waktu dibuat                               |
-| updated_at    | timestamptz | Waktu diperbarui                           |
+| Name          | Data Type                     | Format      | Keterangan                                      |
+| :---          | :---                          | :---        | :---                                            |
+| **id** | `bigint`                      | `int8`      | *Primary Key*, ID unik lokasi.                  |
+| **name** | `character varying`           | `varchar`   | Nama tempat atau lokasi.                        |
+| **description**| `text`                        | `text`      | Penjelasan detail mengenai tempat tersebut.     |
+| **location** | `character varying`           | `varchar`   | Alamat atau nama area lokasi (misal: "Jakarta").|
+| **created_at**| `timestamp without time zone` | `timestamp` | Waktu data dibuat.                              |
+| **updated_at**| `timestamp without time zone` | `timestamp` | Waktu data terakhir diubah.                     |
+| **image** | `character varying`           | `varchar`   | Path/URL gambar lokasi.                         |
 
 ### Tabel activity_logs
+| Nama Kolom    | Tipe Data                  | Constraints (Batasan)        | Keterangan                                                   |
+| :---          | :---                       | :---                         | :---                                                         |
+| **id** | `bigint`                   | PRIMARY KEY, Identity        | ID unik yang otomatis bertambah (1, 2, 3...)                 |
+| **created_at**| `timestamp with time zone` | NOT NULL, Default: `now()`   | Waktu log dibuat otomatis                                    |
+| **user_id** | `bigint`                   | NULL                         | ID pengguna yang melakukan aksi (bisa kosong jika aksi sistem)|
+| **action** | `text`                     | NULL                         | Jenis aksi (misal: "LOGIN", "UPDATE")                        |
+| **description**| `text`                    | NULL                         | Penjelasan singkat aktivitas                                 |
+| **details** | `text`                     | NULL                         | Detail teknis atau JSON string                               |
+| **updated_at**| `timestamp with time zone` | NULL                         | Waktu jika log diperbarui (jarang digunakan untuk log murni) |
 
-| Field       | Type        | Keterangan                                 |
-|-------------|-------------|--------------------------------------------|
-| id          | int8        | Primary Key                                |
-| created_at  | timestamptz | Waktu terjadi aktivitas                    |
-| user_id     | int8        | Foreign Key → users.id                     |
-| action      | text        | Jenis aksi (Login / Logout / lainnya)      |
-| description | text        | Deskripsi aktivitas                        |
-| details     | text        | Detail tambahan (misal: IP user)           |
-
+### Tabel Migrations
+| Name          | Data Type                     | Format      | Keterangan                                      |
+| :---          | :---                          | :---        | :---                                            |
+| **id** | `integer`                     | `int4`      | *Primary Key*, ID urutan migrasi.               |
+| **migration** | `character varying`           | `varchar`   | Nama file class migrasi yang dijalankan.        |
+| **batch** | `integer`                     | `int4`      | Nomor batch/kelompok eksekusi migrasi.          |
 ---
 
 # ## Penggunaan
